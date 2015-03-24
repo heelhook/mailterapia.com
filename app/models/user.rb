@@ -1,5 +1,9 @@
 class User < ActiveRecord::Base
-  enum role: [:user, :vip, :admin]
+  belongs_to :consultation_type
+
+  validates :email, :name, presence: true
+
+  enum role: [:user, :admin]
   after_initialize :set_default_role, :if => :new_record?
 
   def set_default_role
