@@ -1,9 +1,8 @@
 ActiveAdmin.register User do
-  permit_params :email, :password, :password_confirmation, :active_subscription, :active_service
+  permit_params :name, :email, :slug, :password, :password_confirmation, :active_subscription, :active_service
 
   index do
     selectable_column
-    id_column
     column :name
     column :email
     column :service_email
@@ -22,11 +21,13 @@ ActiveAdmin.register User do
 
   form do |f|
     f.inputs "Admin Details" do
+      f.input :name
       f.input :email
       f.input :active_subscription
       f.input :active_service
       f.input :password
       f.input :password_confirmation
+      f.input :slug
     end
     f.actions
   end

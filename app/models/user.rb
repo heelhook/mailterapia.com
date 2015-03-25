@@ -7,7 +7,8 @@ class User < ActiveRecord::Base
   belongs_to :consultation_type
   has_many :wordbank_items, class_name: 'UserWordbankItem'
 
-  # validates :name, presence: true
+  validates :name, :email, presence: true
+  validates :email, uniqueness: true
 
   enum role: [:user, :admin]
   after_initialize :set_default_role, :if => :new_record?

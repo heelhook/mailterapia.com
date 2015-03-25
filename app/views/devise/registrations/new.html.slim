@@ -14,18 +14,40 @@
             .contact-form
               = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :role => 'form'}) do |f|
                 = f.hidden_field :password, value: generated_password
-                = devise_error_messages!
+                - if resource.errors.any?
+                  .info-box.alert-box
+                    = devise_error_messages!
+                .section-widget-heading
+                  h2.section-widget-title Un poco sobre vos
+                  .title-line
                 .contact-name-field
                   div Nombre
                   = f.text_field :name, :autofocus => true, class: 'contact-name', placeholder: 'Tu nombre'
                 .contact-email-field
                   div Email
                   = f.text_field :email, class: 'contact-email', placeholder: 'Tu email'
+                .bottom-spacing-big
+                .section-widget-heading
+                  h2.section-widget-title
+                    | Contanos un poco lo que te pasa
+                  .title-line
+                - ConsultationType.all.each do |consultation_type|
+                  .content.column4_1
+                    .icon-box.icon-box-center.widget-element-bottom
+                      .icon-box-icon.icon-box-icon-top
+                        span.icon-style-border
+                          i.fa.fa.fa-calendar
+                      .icon-box-name
+                        = consultation_type.name
+                      .icon-box-content
+                        p= consultation_type.description
+
+                .cleared
+                .bottom-spacing-small
                 .contact-text-area
-                  div Contanos brevemente la razon de tu consulta
-                  = f.text_area :consultation_description
+                  = f.text_area :consultation_description, placeholder: '¿Querés contarnos en unas pocas palabras el tema de la consulta? Esto es opcional; al comenzar la consulta vas a tener mucho espacio para contarnos sobre lo que te esta sucediendo y material para guiarte en como sacar el máximo provecho de tu mailterapia.'
                 .contact-button.content
-                  = f.submit 'Continuar', :class => 'normal-button', name: 'contact-submit'
+                  = f.submit 'Comenzar a trabajar', :class => 'normal-button', name: 'contact-submit'
               .cleared
             p &nbsp;
 

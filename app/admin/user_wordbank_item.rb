@@ -3,15 +3,14 @@ ActiveAdmin.register UserWordbankItem do
 
   index do
     selectable_column
-    id_column
-    column :user
+    column :user_name
     column :word_count
     column :memo
     column :created_at
     actions
   end
 
-  filter :user
+  filter :user_name
   filter :word_count
   filter :memo
   filter :created_at

@@ -14,9 +14,10 @@ html
 
     == stylesheet_link_tag "application", :media => 'all', 'data-turbolinks-track' => true
     == javascript_include_tag 'application', 'data-turbolinks-track' => true
+    == stylesheet_link_tag controller_name, :media => 'all', 'data-turbolinks-track' => true
     == javascript_include_tag controller_name, 'data-turbolinks-track' => true
     == csrf_meta_tags
-  body.page.page-id-473.page-template-default[class=action_name]
+  body.page.page-id-473.page-template-default[class="#{controller_name} #{action_name}"]
     input#stripe_key[type='hidden' value=Rails.application.secrets.stripe_key_public]
     input#email[type='hidden' value=current_user.try(:email)]
     #background style=""
@@ -26,14 +27,15 @@ html
         == render partial: 'layouts/navigation'
         #body
           - if flash[:notice] || flash[:alert]
-            #page-heading
-              .wrap
-                #page-heading
-                  h1#page-title style='text-align: center;'
-                    span
-                      = flash[:notice]
-                      = flash[:alert]
-                .cleared
+            .wrap
+              .column1
+                .info-box.success-box
+                  .info-box-remove
+                    i.fa.fa-times
+                  p
+                    strong= flash[:notice]
+                  p
+                    strong= flash[:alert]
 
           == yield
         #footer
