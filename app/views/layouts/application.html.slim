@@ -26,10 +26,10 @@ html
       #page
         == render partial: 'layouts/navigation'
         #body
-          - if flash[:notice] || flash[:alert]
-            .wrap
+          .wrap.bottom-spacing-big
+            - if flash[:notice] || flash[:alert]
               .column1
-                .info-box.success-box
+                .info-box.success-box.
                   .info-box-remove
                     i.fa.fa-times
                   p
