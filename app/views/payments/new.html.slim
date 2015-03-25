@@ -1,0 +1,80 @@
+script src="https://checkout.stripe.com/checkout.js"
+
+.wrap-column
+  .column1
+    .content-section-heading
+      h2.content-section-title
+        span Hola #{current_user.name}
+      h3.content-section-subtitle
+        span Esta es tu area de cliente de mailconsulta.com
+  .cleared
+    .content-column1.column-last
+      .widget-entry
+        .column1
+          .content.content-box-content
+
+        .cleared
+      /! end widget entry
+      .widget-entry
+        .column1
+          .section-widget-heading
+            h2.section-widget-title Elegí tu método de consulta
+            .title-line
+        .cleared
+        .column1
+          .icon-box
+            .icon-box-left
+              .icon-box-icon
+                span.icon-style-icon
+                  i.fa.fa.fa-check
+            .icon-box-right
+              .icon-box-name
+                | Consulta 360
+              .icon-box-content
+                p
+                  | Nuestro servicio de consulta inicial más intensivo, completo y orientado a las soluciones. A lo largo de varios mails, realizaremos una valoración completa de tu problema, seguida por una devolución exhaustiva y centrada en darte recursos y ofrecerte lineas de acción claras.
+
+                p
+                  a.normal-button.choose_plan[href='#' data-name="consulta-360"] Elegir
+            .cleared
+          .icon-box
+            .icon-box-left
+              .icon-box-icon
+                span.icon-style-icon
+                  i.fa.fa.fa-check
+            .icon-box-right
+              .icon-box-name
+                | Bono de WordBank para consulta expres o seguimiento
+              .icon-box-content
+                p
+                  | WordBank funciona igual que un bono de minutos o datos para tu teléfono móvil: contrata bloques de palabras por un precio fijo y utilízalas a medida que te haga falta.
+
+                p
+                  a.normal-button.choose_plan[href='#' data-name="wordbank-20"] 20 € + IVA (500 palabras)
+                  a.normal-button.choose_plan[href='#' data-name="wordbank-35"] 35 € + IVA (1000 palabras)
+                  a.normal-button.choose_plan[href='#' data-name="wordbank-60"] 60 € + IVA (2000 palabras)
+            .cleared
+          .icon-box
+            .icon-box-left
+              .icon-box-icon
+                span.icon-style-icon
+                  i.fa.fa.fa-check
+            .icon-box-right
+              .icon-box-name
+                | Suscripcion Ilimitada
+              .icon-box-content
+                p
+                  | Con el plan de suscripción ilimitado podrás recibir apoyo terapéutico por un precio fijo. Puedes escribir tantos mails como quieras y tan largos como quieras: el precio será el mismo.
+
+                p
+                  - if current_user.active_subscription?
+                    a.normal-button.cancel_plan[href='#' data-name="suscripcion-ilimitada"] Cancelar
+                  - else
+                    a.normal-button.choose_plan[href='#' data-name="suscripcion-ilimitada"] Elegir
+            .cleared
+
+          = form_tag method: 'post' do
+            = hidden_field_tag :stripe_customer, @stripe_customer.to_s
+            = hidden_field_tag :plan
+        .cleared
+      /! end widget entry

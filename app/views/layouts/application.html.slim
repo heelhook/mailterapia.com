@@ -5,12 +5,80 @@ html
     title
       = content_for?(:title) ? yield(:title) : 'Mailterapia Com'
     meta name="description" content="#{content_for?(:description) ? yield(:description) : 'Mailterapia Com'}"
+    link#wope-gfont-Raleway-css href="http://fonts.googleapis.com/css?family=Raleway%3A100%2C200%2C300%2C400%2C500%2C600%2C700%2C800%2C900&ver=4.1.1" media="all" rel="stylesheet" type="text/css" /
+    link#wope-default-style-css href="https://www.mailterapia.com/wp-content/themes/prototype/style.css?ver=4.1.1" media="all" rel="stylesheet" type="text/css" /
+    link#wope-responsive-css href="https://www.mailterapia.com/wp-content/themes/prototype/responsive.css?ver=4.1.1" media="all" rel="stylesheet" type="text/css" /
+    link#wope-color-css href="https://www.mailterapia.com/wp-content/themes/prototype/color-scheme/color.css?ver=4.1.1" media="all" rel="stylesheet" type="text/css" /
+    link#wope-font-css href="https://www.mailterapia.com/wp-content/themes/prototype/font-set/typography.css?ver=4.1.1" media="all" rel="stylesheet" type="text/css" /
+    link#wope-font-awesome-css href="https://www.mailterapia.com/wp-content/themes/prototype/font-awesome/css/font-awesome.min.css?ver=4.1.1" media="all" rel="stylesheet" type="text/css" /
+
     == stylesheet_link_tag "application", :media => 'all', 'data-turbolinks-track' => true
     == javascript_include_tag 'application', 'data-turbolinks-track' => true
+    == javascript_include_tag controller_name, 'data-turbolinks-track' => true
     == csrf_meta_tags
-  body
-    header
-      == render 'layouts/navigation'
-    main[role="main"]
-      == render 'layouts/messages'
-      == yield
+  body.page.page-id-473.page-template-default[class=action_name]
+    input#stripe_key[type='hidden' value=Rails.application.secrets.stripe_key_public]
+    input#email[type='hidden' value=current_user.try(:email)]
+    #background style=""
+      #back_top
+        i.fa.fa-angle-up
+      #page
+        == render partial: 'layouts/navigation'
+        #body
+          - if flash[:notice] || flash[:alert]
+            #page-heading
+              .wrap
+                #page-heading
+                  h1#page-title style='text-align: center;'
+                    span
+                      = flash[:notice]
+                      = flash[:alert]
+                .cleared
+
+          == yield
+        #footer
+        #footer-bottom
+            .wrap
+              #footer-copyright
+                | Copyright 2015 - Mailterapia
+                br/
+                br/
+              .cleared
+        /! End Footer
+      /! End Page
+    /! End Site Background
+    javascript:
+      | jQuery(document).ready(function() {
+          | jQuery('#submit').click( function() {
+              | if( jQuery('textarea[name="private_message"]').val() == '' ) {
+                  | jQuery('textarea[name="private_message"]').focus();
+                  | return false;
+              | } else {
+                  | return true;
+              | }
+          | });
+      | });
+
+      | var CaptchaCallback = function(){
+                      | };
+    script src="https://www.mailterapia.com/wp-includes/js/jquery/ui/core.min.js?ver=1.11.2" type="text/javascript"
+    script src="https://www.mailterapia.com/wp-includes/js/jquery/ui/widget.min.js?ver=1.11.2" type="text/javascript"
+    script src="https://www.mailterapia.com/wp-includes/js/jquery/ui/accordion.min.js?ver=1.11.2" type="text/javascript"
+    script src="https://www.mailterapia.com/wp-content/themes/prototype/js/script.js?ver=4.1.1" type="text/javascript"
+    script src="https://www.mailterapia.com/wp-content/themes/prototype/js/jquery.easing.1.3.js?ver=4.1.1" type="text/javascript"
+    script src="https://www.mailterapia.com/wp-content/themes/prototype/js/jquery.isotope.min.js?ver=4.1.1" type="text/javascript"
+    script src="https://www.mailterapia.com/wp-content/themes/prototype/js/flex-slider/jquery.flexslider-min.js?ver=4.1.1" type="text/javascript"
+    script src="https://www.mailterapia.com/wp-content/themes/prototype/js/prettyPhoto/js/jquery.prettyPhoto.js?ver=4.1.1" type="text/javascript"
+    script src="https://www.mailterapia.com/wp-content/themes/prototype/js/jquery.tubular.1.0.js?ver=4.1.1" type="text/javascript"
+    script src="https://www.mailterapia.com/wp-includes/js/comment-reply.min.js?ver=4.1.1" type="text/javascript"
+    javascript:
+      /!*  */
+      | var pwsL10n = {"empty":"Strength indicator","short":"Very weak","bad":"Weak","good":"Medium","strong":"Strong","mismatch":"Mismatch"};
+      /!*  */
+    script src="https://www.mailterapia.com/wp-admin/js/password-strength-meter.min.js?ver=4.1.1" type="text/javascript"
+    javascript:
+      /!*  */
+      | var wpc_text_var = {"pwsL10n":{"empty":"Strength Indicator","short":"Too Short","weak":"Very Weak","bad":"Weak","good":"Medium","strong":"Strong","mismatch":"Password Mismatch","mixed_case":"Needs Mixed Case","numbers":"Needs Numbers","special_chars":"Needs Special Chars","blacklist":"Password in Blacklist"}};
+      | var wpc_password_protect = {"blackList":["password","qwerty","123456789"],"min_length":"1","strength":"5","mixed_case":"0","numeric_digits":"0","special_chars":"0","hint_message":"Hint - The password:<br \/><span class=\"wpc_requirement_level\">- Must trigger the Very weak level on the Strength indicator.<\/span><br \/>"};
+      /!*  */
+    script src="https://www.mailterapia.com/wp-content/plugins/wp-client/js/password_protect.js?ver=4.1.1" type="text/javascript"

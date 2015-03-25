@@ -1,1 +1,10 @@
 es:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: esta vacio
+            name:
+              blank: esta vacio

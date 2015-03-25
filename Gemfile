@@ -19,7 +19,7 @@ gem 'devise-i18n'
 gem 'devise_invitable'
 gem 'simple_form'
 gem 'slim-rails'
-gem 'upmin-admin'
+gem 'activeadmin', github: 'activeadmin'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]
@@ -37,3 +37,7 @@ group :development, :test do
   gem 'pry-rescue'
   gem 'rubocop'
 end
+
+gem 'stripe'
+gem 'font-awesome-rails'
+gem 'friendly_id'

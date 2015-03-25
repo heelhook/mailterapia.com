@@ -1,17 +1,10 @@
-- # add navigation links to this file
 - if user_signed_in?
-  li
-    = link_to 'Edit account', edit_user_registration_path
-  li
-    = link_to 'Sign out', destroy_user_session_path, :method=>'delete'
+  li.menu-item.menu-item-type-post_type.menu-item-object-page
+    a href=edit_user_registration_path  Mi cuenta
+  li.menu-item.menu-item-type-post_type.menu-item-object-page
+    = link_to 'Cerrar Sesión', destroy_user_session_path, :method=>'delete'
 - else
-  li
-    = link_to 'Sign in', new_user_session_path
-  li
-    = link_to 'Sign up', new_user_registration_path
-- if user_signed_in?
-  - if current_user.admin?
-    li
-      = link_to 'Admin', '/admin'
-    li
-      = link_to 'Users', users_path
+  li.menu-item.menu-item-type-post_type.menu-item-object-page
+    = link_to 'Iniciar sesión', new_user_session_path
+  li.menu-item.menu-item-type-post_type.menu-item-object-page
+    = link_to 'Registrarse', new_user_registration_path

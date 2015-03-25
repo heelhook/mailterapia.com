@@ -1,13 +1,22 @@
-/ navigation styled for Bootstrap 3.0
-nav.navbar.navbar-inverse.navbar-fixed-top
-  .container
-    .navbar-header
-      button.navbar-toggle[type="button" data-toggle="collapse" data-target=".navbar-collapse"]
-        span.sr-only Toggle navigation
-        span.icon-bar
-        span.icon-bar
-        span.icon-bar
-      = link_to 'Home', root_path, class: 'navbar-brand'
-    .collapse.navbar-collapse
-      ul.nav.navbar-nav
-        == render 'layouts/navigation_links'
+#header
+  #main-menu-toggle
+    .wrap
+      a href="https://www.mailterapia.com"  Home
+  .wrap
+    .site-logo
+      a.logo-image href="https://www.mailterapia.com"
+        img alt="Mailterapia" src="http://www.mailterapia.com/wp-content/uploads/2015/03/mailterapia-1.png" /
+    .main-menu
+      .menu-main-menu-container
+        ul#menu-main-menu.menu
+          == render 'layouts/navigation_links'
+      .cleared
+    /! End Main Menu
+    #toggle-menu-button
+      i.fa.fa-align-justify
+    .cleared
+    javascript:
+      | jQuery('#toggle-menu-button').click(function(){
+        | jQuery("#main-menu-toggle").slideToggle(350);
+      | });
+/! End Header

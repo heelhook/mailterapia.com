@@ -1,6 +1,80 @@
-h3
-  | Welcome
-p
-  = link_to 'Users:', users_path
-  = User.count
-  |  registered
+.wrap-column
+  .column1
+    .content-section-heading
+      h2.content-section-title
+        span Hola #{current_user.name}
+      h3.content-section-subtitle
+        span Esta es tu area de cliente de mailconsulta.com
+  .cleared
+    .content-column1.column-last
+      - if current_user.stripe_customer
+        .widget-entry
+          .column1
+            .section-widget-heading
+              h2.section-widget-title Estado de tu cuenta
+              .title-line
+          .content.column1_1.column-last
+            ul.custom-list
+              li.li-normal.li-black
+                i.fa.fa-keyboard-o
+                | Balance de WordBank:
+                b  #{pluralize current_user.wordbank_balance, 'palabra'}
+              li.li-normal.li-black
+                i.fa.fa-envelope-o
+                | Suscripcion Ilimitada:
+                b
+                  - if current_user.active_subscription == 'suscripcion-ilimitada'
+                    |  Activa
+                  - else
+                    |  Inactiva
+              li.li-normal.li-black
+                i.fa.fa-envelope-o
+                | Consulta 360:
+                b
+                  - if current_user.active_service == 'consulta-360'
+                    |  Contratada
+                  - else
+                    |  Inactiva
+
+            p
+              a.normal-button[href=new_payment_path] Contratar otros servicios
+
+          .cleared
+
+        - if current_user.access_to_service?
+          .widget-entry
+            .column1
+              .section-widget-heading
+                h2.section-widget-title Tu Terapeuta
+                .title-line
+            .content.column3_1
+              .team.widget-element-bottom
+                .team-thumb
+                  img src="http://www.mailterapia.com/wp-content/uploads/2014/09/Marina-redonda.png" /
+              .cleared
+            .content.column3_2
+              .team-heading
+                .team-name
+                  | MARINA DÍAZ
+                .team-subtitle
+                  | Fundadora y psicóloga clínica
+                .team-content
+                  | Actualmente, Marina es quien atiende la totalidad de las consultas de Mailterapia. ¡Espera contar pronto con ayuda, porque cada vez tiene más trabajo! Le apasiona escribir, la escalada y&nbsp;ser útil a la gente. Vive en Margalef, un pueblecito de Tarragona.
+            .content.column3_1
+              .team-content
+                p
+                  = link_to "Contacta a tu terapeuta ahora", "mailto:#{current_user.service_email}"
+
+            .cleared
+
+          .widget-entry
+            .column1
+              .section-widget-heading
+                h2.section-widget-title Claves para una terapia efectiva
+                .title-line
+            .column1
+              p
+                | No es necesario que seas Cervantes: basta con que te encuentres cómodo poniendo por escrito lo que te preocupa. Te invitamos a que lo pruebes:&nbsp;nuestros clientes encuentran que, a menudo, el acto de poner por escrito los pensamientos y emociones es
+                strong  terapéutico.&nbsp;
+
+            .cleared

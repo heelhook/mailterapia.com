@@ -1,18 +1,32 @@
-.authform
-  = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :role => 'form'}) do |f|
-    h3
-      | Sign up
-    = devise_error_messages!
-    .form-group
-      = f.label :name
-      = f.text_field :name, :autofocus => true, class: 'form-control'
-    .form-group
-      = f.label :email
-      = f.email_field :email, class: 'form-control'
-    .form-group
-      = f.label :password
-      = f.password_field :password, class: 'form-control'
-    .form-group
-      = f.label :password_confirmation
-      = f.password_field :password_confirmation, class: 'form-control'
-    = f.submit 'Sign up', :class => 'button right'
+- generated_password = (0...8).map { (65 + rand(26)).chr }.join
+.wrap-column
+  .column1
+    .content-section-heading
+      h2.content-section-title
+        span Registrarte
+      h3.content-section-subtitle
+        span Crea tu cuenta en mailterapia.com
+  .cleared
+    .content-column1.column-last
+      .widget-entry
+        .column1
+          .content.content-box-content
+            .contact-form
+              = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :role => 'form'}) do |f|
+                = f.hidden_field :password, value: generated_password
+                = devise_error_messages!
+                .contact-name-field
+                  div Nombre
+                  = f.text_field :name, :autofocus => true, class: 'contact-name', placeholder: 'Tu nombre'
+                .contact-email-field
+                  div Email
+                  = f.text_field :email, class: 'contact-email', placeholder: 'Tu email'
+                .contact-text-area
+                  div Contanos brevemente la razon de tu consulta
+                  = f.text_area :consultation_description
+                .contact-button.content
+                  = f.submit 'Continuar', :class => 'normal-button', name: 'contact-submit'
+              .cleared
+            p &nbsp;
+
+  .cleared
