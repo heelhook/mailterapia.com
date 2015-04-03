@@ -35,7 +35,7 @@ script src="https://checkout.stripe.com/checkout.js"
                   | Nuestro servicio de consulta inicial más intensivo, completo y orientado a las soluciones. A lo largo de varios mails, realizaremos una valoración completa de tu problema, seguida por una devolución exhaustiva y centrada en darte recursos y ofrecerte lineas de acción claras.
 
                 p
-                  a.normal-button.choose_plan[href='#' data-name="consulta-360"] Elegir
+                  a.normal-button.choose_plan[href='#' data-name="consulta-360"] Contratar Consulta 360 (100 € + IVA)
             .cleared
           .icon-box
             .icon-box-left
@@ -70,7 +70,7 @@ script src="https://checkout.stripe.com/checkout.js"
                   - if current_user.active_subscription?
                     a.normal-button.cancel_plan[href='#' data-name="suscripcion-ilimitada"] Cancelar
                   - else
-                    a.normal-button.choose_plan[href='#' data-name="suscripcion-ilimitada"] Elegir
+                    a.normal-button.choose_plan[href='#' data-name="suscripcion-ilimitada"] Comenzar Suscripción Ilimitada (60 € + IVA cada 15 días)
             .cleared
 
           = form_tag method: 'post' do

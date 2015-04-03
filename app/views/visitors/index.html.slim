@@ -7,39 +7,57 @@
         span Esta es tu area de cliente de mailconsulta.com
   .cleared
     .content-column1.column-last
-      - if current_user.stripe_customer
-        .widget-entry
-          .column1
-            .section-widget-heading
-              h2.section-widget-title Estado de tu cuenta
-              .title-line
-          .content.column1_1.column-last
-            ul.custom-list
-              li.li-normal.li-black
-                i.fa.fa-keyboard-o
-                | Balance de WordBank:
-                b  #{pluralize current_user.wordbank_balance, 'palabra'}
-              li.li-normal.li-black
-                i.fa.fa-envelope-o
-                | Suscripcion Ilimitada:
-                b
-                  - if current_user.active_subscription == 'suscripcion-ilimitada'
-                    |  Activa
-                  - else
-                    |  Inactiva
-              li.li-normal.li-black
-                i.fa.fa-envelope-o
-                | Consulta 360:
-                b
-                  - if current_user.active_service == 'consulta-360'
-                    |  Contratada
-                  - else
-                    |  Inactiva
+      - if !current_user.access_to_service?
+        .info-box.note-box
+          .info-box-remove
+            i.fa.fa-times
+          h2 No tenes ningun servicio activo
 
-            p
-              a.normal-button[href=new_payment_path] Contratar otros servicios
+          p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      - elsif @first_payment_alert
+        #welcome
+          .info-box.note-box
+            .info-box-remove
+              i.fa.fa-times
+            h2 Bienvenido!
 
-          .cleared
+            p Aca te vamos a dar la bienvenida y decirte cosas.
+
+            p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+          p[style="text-align: center;"]
+            a.big-button.normal-button#welcome-box-continue[href='#'] Continuar
+      .widget-entry.content#content[style="display: none;"]
+        .column2_1
+          .section-widget-heading
+            h2.section-widget-title Estado de tu cuenta
+            .title-line
+
+          ul.custom-list
+            li.li-normal.li-black
+              i.fa.fa-keyboard-o
+              | Balance de WordBank:
+              b  #{pluralize current_user.wordbank_balance, 'palabra'}
+            li.li-normal.li-black
+              i.fa.fa-envelope-o
+              | Suscripcion Ilimitada:
+              b
+                - if current_user.active_subscription == 'suscripcion-ilimitada'
+                  |  Activa
+                - else
+                  |  Inactiva
+            li.li-normal.li-black
+              i.fa.fa-envelope-o
+              | Consulta 360:
+              b
+                - if current_user.active_service == 'consulta-360'
+                  |  Contratada
+                - else
+                  |  Inactiva
+
+          p
+            a.normal-button[href=new_payment_path] Contratar otros servicios
+        .cleared
 
         - if current_user.access_to_service?
           .widget-entry
@@ -78,3 +96,20 @@
                 strong  terapéutico.&nbsp;
 
             .cleared
+
+          - if current_user.dropbox_link
+            .widget-entry
+              .column1
+                .section-widget-heading
+                  h2.section-widget-title Material Personal
+                  .title-line
+              .column1
+                p
+                  | En este espacio te voy a ir dejando material para asistir con la terapia que estamos haciendo.
+
+                p
+                  a.normal-button[href=current_user.dropbox_link target="_blank"] Acceder
+
+              .cleared
+
+

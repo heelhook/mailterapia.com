@@ -23,11 +23,11 @@ gem 'activeadmin', github: 'activeadmin'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]
-  gem 'capistrano', '~> 3.0.1'
-  gem 'capistrano-bundler'
-  gem 'capistrano-rails', '~> 1.1.0'
-  gem 'capistrano-rails-console'
-  gem 'capistrano-rvm', '~> 0.1.1'
+  gem 'capistrano-rails', group: :development
+  gem 'capistrano-passenger'
+  gem 'capistrano-bundler', '~> 1.1.2'
+  gem 'rvm1-capistrano3', require: false
+  gem 'capistrano-secrets-yml', '~> 1.0.0'
   gem 'hub', :require=>nil
   gem 'quiet_assets'
   gem 'rails_layout'
@@ -41,3 +41,4 @@ end
 gem 'stripe'
 gem 'font-awesome-rails'
 gem 'friendly_id'
+gem 'mandrill_mailer'

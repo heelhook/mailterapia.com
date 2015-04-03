@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/activeadmin/activeadmin.git
-  revision: 53e85d6a2cf4f5bc083e8da7c6786b5cd69ce7a1
+  revision: 28e8a8f36640c64fc4163c86cc31d716862c5b37
   specs:
     activeadmin (1.0.0.pre1)
       arbre (~> 1.0, >= 1.0.2)
@@ -60,7 +60,7 @@ GEM
     ast (2.0.0)
     astrolabe (1.3.0)
       parser (>= 2.2.0.pre.3, < 3.0)
-    autoprefixer-rails (5.1.7.1)
+    autoprefixer-rails (5.1.8)
       execjs
       json
     bcrypt (3.1.10)
@@ -73,27 +73,27 @@ GEM
     bootstrap-sass (3.3.4.1)
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.2.19)
-    bourbon (4.2.1)
+    bourbon (4.2.2)
       sass (~> 3.4)
       thor
     builder (3.2.2)
-    byebug (4.0.3)
+    byebug (4.0.5)
       columnize (= 0.9.0)
-    capistrano (3.0.1)
+    capistrano (3.4.0)
       i18n
       rake (>= 10.0.0)
-      sshkit (>= 0.0.23)
-    capistrano-bundler (1.1.2)
-      capistrano (~> 3.0)
+      sshkit (~> 1.3)
+    capistrano-bundler (1.1.4)
+      capistrano (~> 3.1)
       sshkit (~> 1.2)
-    capistrano-rails (1.1.0)
-      capistrano (>= 3.0.0)
-      capistrano-bundler (>= 1.0.0)
-    capistrano-rails-console (0.5.0)
-      capistrano (>= 3.0.0, < 4.0.0)
-    capistrano-rvm (0.1.2)
+    capistrano-passenger (0.0.4)
       capistrano (~> 3.0)
-      sshkit (~> 1.2)
+    capistrano-rails (1.1.2)
+      capistrano (~> 3.1)
+      capistrano-bundler (~> 1.1)
+    capistrano-secrets-yml (1.0.0)
+      capistrano (>= 3.1)
+      sshkit (>= 1.2.0)
     coderay (1.1.0)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
@@ -112,13 +112,14 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
-    devise-i18n (0.11.4)
-    devise_invitable (1.4.1)
+    devise-i18n (0.12.0)
+    devise_invitable (1.4.2)
       actionmailer (>= 3.2.6, < 5)
       devise (>= 3.2.0)
     domain_name (0.5.23)
       unf (>= 0.0.5, < 1.0.0)
     erubis (2.7.0)
+    excon (0.45.1)
     execjs (2.4.0)
     font-awesome-rails (4.3.0.0)
       railties (>= 3.2, < 5.0)
@@ -160,6 +161,13 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    mandrill-api (1.0.53)
+      excon (>= 0.16.0, < 1.0)
+      json (>= 1.7.7, < 2.0)
+    mandrill_mailer (0.5.1)
+      actionpack
+      activesupport
+      mandrill-api (~> 1.0.9)
     method_source (0.8.2)
     mime-types (2.4.3)
     mini_portile (0.6.2)
@@ -181,7 +189,7 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
-    pry-rails (0.3.3)
+    pry-rails (0.3.4)
       pry (>= 0.9.10)
     pry-rescue (1.4.1)
       interception (>= 0.5)
@@ -218,7 +226,7 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rainbow (2.0.0)
     rake (10.4.2)
-    ransack (1.6.4)
+    ransack (1.6.5)
       actionpack (>= 3.0)
       activerecord (>= 3.0)
       activesupport (>= 3.0)
@@ -236,9 +244,12 @@ GEM
       powerpack (~> 0.1)
       rainbow (>= 1.99.1, < 3.0)
       ruby-progressbar (~> 1.4)
-    ruby-progressbar (1.7.4)
+    ruby-progressbar (1.7.5)
+    rvm1-capistrano3 (1.3.2.2)
+      capistrano (~> 3.0)
+      sshkit (>= 1.2)
     sass (3.4.13)
-    sass-rails (5.0.1)
+    sass-rails (5.0.3)
       railties (>= 4.0.0, < 5.0)
       sass (~> 3.1)
       sprockets (>= 2.8, < 4.0)
@@ -272,7 +283,7 @@ GEM
       colorize (>= 0.7.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
-    stripe (1.20.3)
+    stripe (1.20.4)
       json (~> 1.8.1)
       mime-types (>= 1.25, < 3.0)
       rest-client (~> 1.4)
@@ -307,11 +318,10 @@ DEPENDENCIES
   binding_of_caller
   bootstrap-sass
   byebug
-  capistrano (~> 3.0.1)
-  capistrano-bundler
-  capistrano-rails (~> 1.1.0)
-  capistrano-rails-console
-  capistrano-rvm (~> 0.1.1)
+  capistrano-bundler (~> 1.1.2)
+  capistrano-passenger
+  capistrano-rails
+  capistrano-secrets-yml (~> 1.0.0)
   coffee-rails (~> 4.1.0)
   devise
   devise-i18n
@@ -321,12 +331,14 @@ DEPENDENCIES
   hub
   jbuilder (~> 2.0)
   jquery-rails
+  mandrill_mailer
   pry-rails
   pry-rescue
   quiet_assets
   rails (= 4.2.0)
   rails_layout
   rubocop
+  rvm1-capistrano3
   sass-rails (~> 5.0)
   simple_form
   slim-rails

@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   extend FriendlyId
-  friendly_id :name, use: [ :slugged, :finders ]
+  friendly_id :generate_slug, use: [ :slugged, :finders ]
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -13,6 +13,16 @@ class User < ActiveRecord::Base
   enum role: [:user, :admin]
   after_initialize :set_default_role, :if => :new_record?
 
+  after_create :send_email
+
+  def send_email
+    password = Devise.friendly_token.first(8)
+    self.update_attributes(password: password)
+
+    TransactionMailer.welcome(self, password).deliver
+    TransactionMailer.notification_new_user(self).deliver
+  end
+
   def set_default_role
     self.role ||= :user
   end
@@ -22,6 +32,9 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable
 
+  def generate_slug
+    [ name[0..15] ]
+  end
 
   def stripe_customer
     return nil unless stripe_token

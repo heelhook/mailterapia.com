@@ -2,9 +2,11 @@ class VisitorsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @page_title = "Bienvenido"
-    @page_subtitle = "Registrate ahora"
+    redirect_to new_payment_path unless current_user.stripe_token
 
-    redirect_to new_payment_path unless current_user.access_to_service?
+    if session[:first_payment]
+      @first_payment_alert = true
+      session[:first_payment] = nil
+    end
   end
 end

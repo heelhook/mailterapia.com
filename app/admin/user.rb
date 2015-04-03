@@ -1,5 +1,5 @@
 ActiveAdmin.register User do
-  permit_params :name, :email, :slug, :password, :password_confirmation, :active_subscription, :active_service
+  permit_params :name, :email, :slug, :password, :password_confirmation, :active_subscription, :active_service, :dropbox_link
 
   index do
     selectable_column
@@ -11,6 +11,7 @@ ActiveAdmin.register User do
     column :active_service
     column :stripe_token
     column :wordbank_balance
+    column :dropbox_link
     actions
   end
 
@@ -25,6 +26,7 @@ ActiveAdmin.register User do
       f.input :email
       f.input :active_subscription
       f.input :active_service
+      f.input :dropbox_link
       f.input :password
       f.input :password_confirmation
       f.input :slug

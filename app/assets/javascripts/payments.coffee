@@ -35,12 +35,13 @@ $ ->
       $('input#plan').val(plan_name)
 
       if stripe_customer
-        $.ajax
-          url: '/payments'
-          method: 'post'
-          data:
-            plan: $('input#plan').val()
-          complete: -> payment_completed()
+        if confirm("Para tu comodidad ya no hace falta que vuelvas a ingresar tus datos bancarios. Procederemos al cobro correspondiente.")
+          $.ajax
+            url: '/payments'
+            method: 'post'
+            data:
+              plan: $('input#plan').val()
+            complete: -> payment_completed()
       else
         $handler.open(
           switch plan_name

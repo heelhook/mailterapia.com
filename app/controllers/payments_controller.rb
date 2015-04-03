@@ -5,6 +5,8 @@ class PaymentsController < ApplicationController
 
   def create
     customer = current_user.stripe_customer
+    session[:first_payment] unless customer
+
     customer ||= Stripe::Customer.create(
       source: params[:stripe_token][:id],
       description: current_user.name,
@@ -20,18 +22,23 @@ class PaymentsController < ApplicationController
     when 'consulta-360'
       amount = 12100
       service = 'consulta-360'
+      service_name = 'Consulta 360'
     when 'wordbank-20'
       wordbank_balance = 500
       amount = 2420
+      service_name = 'Bono WordBank 20 EUR'
     when 'wordbank-35'
       wordbank_balance = 1000
       amount = 4235
+      service_name = 'Bono WordBank 35 EUR'
     when 'wordbank-60'
       wordbank_balance = 2000
       amount = 7260
+      service_name = 'Bono WordBank 60 EUR'
     when 'suscripcion-ilimitada'
       type = :subscription
       plan = 'suscripcion-ilimitada'
+      service_name = 'Suscripción Ilimitada'
     end
 
     case type
@@ -65,6 +72,8 @@ class PaymentsController < ApplicationController
         active_subscription: plan,
       )
     end
+
+    TransactionMailer.notification_payment(current_user, amount/100.0, service_name).deliver
 
     flash[:notice] = 'El abono se realizó con éxito! Comenzá a trabajar con tu terapeuta!'
 
