@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock '3.3.5'
+lock '3.4.0'
 
 set :application, 'mailterapia.com'
 set :repo_url, 'git@github.com:heelhook/mailterapia.com.git'
@@ -36,24 +36,6 @@ set :assets_roles, [:web, :app]
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
-set :linked_files, %w{config/database.yml config/sync.yml}
-
-namespace :sync do
-  desc 'Copy sync.yml file'
-  task :setup do
-    content = File.read(Pathname.new('config/sync.yml'))
-
-    on release_roles :all do
-      execute :mkdir, "-pv", File.dirname(shared_path.join('config/sync.yml'))
-      upload! StringIO.new(content), shared_path.join('config/sync.yml')
-    end
-  end
-end
-
-task :setup do
-  invoke "sync:setup"
-end
-
 namespace :deploy do
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
@@ -64,30 +46,4 @@ namespace :deploy do
     end
   end
 
-end
-
-namespace :deploy do
-  namespace :assets do
-
-    Rake::Task['deploy:assets:precompile'].clear_actions
-
-    desc 'Precompile assets locally and upload to servers'
-    task :precompile do
-      on roles(fetch(:assets_roles)) do
-        run_locally do
-          with rails_env: fetch(:rails_env) do
-            execute 'bin/rake assets:precompile'
-          end
-        end
-
-        within release_path do
-          with rails_env: fetch(:rails_env) do
-            upload!('./public/assets/', "#{shared_path}/public/", recursive: true)
-          end
-        end
-
-        run_locally { execute 'rm -rf public/assets' }
-      end
-    end
-  end
 end
