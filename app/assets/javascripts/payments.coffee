@@ -45,8 +45,8 @@ $ ->
       else
         $handler.open(
           switch plan_name
-            when 'consulta-360'
-              description: 'Consulta 360'
+            when 'consulta-express'
+              description: 'Consulta Express'
               panelLabel: 'Abonar Consulta'
             when 'wordbank-20'
               description: 'Bono 20 €'

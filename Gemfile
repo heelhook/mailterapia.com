@@ -39,6 +39,7 @@ group :development, :test do
   gem 'rubocop'
 end
 
+gem 'gibbon'
 gem 'stripe'
 gem 'font-awesome-rails'
 gem 'friendly_id'

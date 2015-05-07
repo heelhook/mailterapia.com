@@ -20,7 +20,10 @@
                   .title-line
                 .contact-name-field
                   div Nombre
-                  = f.text_field :name, :autofocus => true, class: 'contact-name', placeholder: 'Tu nombre'
+                  = f.text_field :nombre, :autofocus => true, class: 'contact-name', placeholder: 'Nombre'
+                .contact-name-field
+                  div Apellido
+                  = f.text_field :apellido, class: 'contact-name', placeholder: 'Apellido'
                 .contact-email-field
                   div Email
                   = f.text_field :email, class: 'contact-email', placeholder: 'Tu email'
@@ -50,6 +53,18 @@
                 .bottom-spacing-small
                 .contact-text-area
                   = f.text_area :consultation_description, placeholder: '¿Querés contarnos en unas pocas palabras el tema de la consulta? Esto es opcional; al comenzar la consulta vas a tener mucho espacio para contarnos sobre lo que te esta sucediendo y material para guiarte en como sacar el máximo provecho de tu mailterapia.'
+
+                p
+                  label
+                    = f.check_box :condiciones_de_servicio, style: '-webkit-appearance: checkbox; width: 20px; height: 20px;'
+                    span
+                      | Acepto las
+                      |  #{link_to 'condiciones generales del servicio', 'https://www.mailterapia.com/condiciones-del-servicio/'}
+                      |  de Mailterapia.
+                p
+                  label
+                    = f.check_box :newsletter, style: '-webkit-appearance: checkbox; width: 20px; height: 20px;'
+                    span Deseo recibir información sobre Mailterapia por email (recomendado)
                 .contact-button.content
                   = f.submit 'Comenzar a trabajar', :class => 'normal-button', name: 'contact-submit'
               .cleared

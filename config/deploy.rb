@@ -25,10 +25,10 @@ set :assets_roles, [:web, :app]
 # set :pty, true
 
 # Default value for :linked_files is []
-# set :linked_files, fetch(:linked_files, []).push('config/database.yml')
+set :linked_files, fetch(:linked_files, []).push('config/database.yml')
 
 # Default value for linked_dirs is []
-# set :linked_dirs, fetch(:linked_dirs, []).push('bin', 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
+set :linked_dirs, fetch(:linked_dirs, []).push('bin', 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/assets')
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -46,4 +46,30 @@ namespace :deploy do
     end
   end
 
+end
+
+namespace :deploy do
+  namespace :assets do
+
+    # Rake::Task['deploy:assets:precompile'].clear_actions
+
+    desc 'Precompile assets locally and upload to servers'
+    task :precompile do
+      on roles(fetch(:assets_roles)) do
+        run_locally do
+          with rails_env: fetch(:rails_env) do
+            execute 'bin/rake assets:precompile'
+          end
+        end
+
+        within release_path do
+          with rails_env: fetch(:rails_env) do
+            upload!('./public/assets/', "#{shared_path}/public/", recursive: true)
+          end
+        end
+
+        run_locally { execute 'rm -rf public/assets' }
+      end
+    end
+  end
 end

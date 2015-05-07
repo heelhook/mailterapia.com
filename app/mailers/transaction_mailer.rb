@@ -10,12 +10,13 @@ class TransactionMailer < MandrillMailer::TemplateMailer
       from: user.service_email,
       to: {
         email: user.email,
-        name: user.name
+        name: user.nombre_completo
       },
       vars: {
-        'NAME' => user.name,
+        'NAME' => user.nombre_completo,
         'SUBJECT' => @subject,
         'PASSWORD' => password,
+        'SERVICE_EMAIL' => user.service_email,
       },
       important: true,
       inline_css: true,
@@ -35,12 +36,13 @@ class TransactionMailer < MandrillMailer::TemplateMailer
         name: "Marina Diaz"
       },
       vars: {
-        'NAME' => user.name,
+        'NAME' => user.nombre_completo,
         'EMAIL' => user.email,
         'SLUG' => user.slug,
         'CONSULTATION_TYPE' => user.consultation_type.try(:name),
         'CONSULTATION_DESCRIPTION' => user.consultation_description,
         'SUBJECT' => @subject,
+        'SERVICE_EMAIL' => user.service_email,
       },
       important: true,
       inline_css: true,
@@ -60,13 +62,35 @@ class TransactionMailer < MandrillMailer::TemplateMailer
       bcc: 'marinadiazc@gmail.com',
       to: {
         email: user.email,
-        name: user.name,
+        name: user.nombre_completo,
       },
       vars: {
-        'NAME' => user.name,
+        'NAME' => user.nombre_completo,
         'AMOUNT' => amount,
         'SERVICE' => service,
         'SUBJECT' => @subject,
+        'SERVICE_EMAIL' => user.service_email,
+      },
+      important: true,
+      inline_css: true,
+      async: true,
+    )
+  end
+
+  def comienzo_terapia(user, service)
+    mandrill_mail(
+      template: "comienzo-terapia-#{service}",
+      from: user.service_email,
+      reply_to: user.service_email,
+      from: user.service_email,
+      bcc: 'marinadiazc@gmail.com',
+      to: {
+        email: user.email,
+        name: user.nombre_completo,
+      },
+      vars: {
+        'NAME' => user.nombre_completo,
+        'SERVICE_EMAIL' => user.service_email,
       },
       important: true,
       inline_css: true,

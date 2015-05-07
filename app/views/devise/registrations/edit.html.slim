@@ -15,7 +15,10 @@
                 = devise_error_messages!
                 .contact-name-field
                   div Nombre
-                  = f.text_field :name, :autofocus => true, class: 'contact-name'
+                  = f.text_field :nombre, :autofocus => true, class: 'contact-name'
+                .contact-name-field
+                  div Apellido
+                  = f.text_field :apellido, class: 'contact-name'
                 .contact-name-field
                   div Email
                   = f.text_field :email, class: 'contact-name'

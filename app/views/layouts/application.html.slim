@@ -50,19 +50,19 @@ html
       /! End Page
     /! End Site Background
     javascript:
-      | jQuery(document).ready(function() {
-          | jQuery('#submit').click( function() {
-              | if( jQuery('textarea[name="private_message"]').val() == '' ) {
-                  | jQuery('textarea[name="private_message"]').focus();
-                  | return false;
-              | } else {
-                  | return true;
-              | }
-          | });
-      | });
+      jQuery(document).ready(function() {
+          jQuery('#submit').click( function() {
+              if( jQuery('textarea[name="private_message"]').val() == '' ) {
+                  jQuery('textarea[name="private_message"]').focus();
+                  return false;
+              } else {
+                  return true;
+              }
+          });
+      });
 
-      | var CaptchaCallback = function(){
-                      | };
+      var CaptchaCallback = function(){
+                      };
     script src="https://www.mailterapia.com/wp-includes/js/jquery/ui/core.min.js?ver=1.11.2" type="text/javascript"
     script src="https://www.mailterapia.com/wp-includes/js/jquery/ui/widget.min.js?ver=1.11.2" type="text/javascript"
     script src="https://www.mailterapia.com/wp-includes/js/jquery/ui/accordion.min.js?ver=1.11.2" type="text/javascript"
@@ -75,12 +75,12 @@ html
     script src="https://www.mailterapia.com/wp-includes/js/comment-reply.min.js?ver=4.1.1" type="text/javascript"
     javascript:
       /!*  */
-      | var pwsL10n = {"empty":"Strength indicator","short":"Very weak","bad":"Weak","good":"Medium","strong":"Strong","mismatch":"Mismatch"};
+      var pwsL10n = {"empty":"Strength indicator","short":"Very weak","bad":"Weak","good":"Medium","strong":"Strong","mismatch":"Mismatch"};
       /!*  */
     script src="https://www.mailterapia.com/wp-admin/js/password-strength-meter.min.js?ver=4.1.1" type="text/javascript"
     javascript:
       /!*  */
-      | var wpc_text_var = {"pwsL10n":{"empty":"Strength Indicator","short":"Too Short","weak":"Very Weak","bad":"Weak","good":"Medium","strong":"Strong","mismatch":"Password Mismatch","mixed_case":"Needs Mixed Case","numbers":"Needs Numbers","special_chars":"Needs Special Chars","blacklist":"Password in Blacklist"}};
-      | var wpc_password_protect = {"blackList":["password","qwerty","123456789"],"min_length":"1","strength":"5","mixed_case":"0","numeric_digits":"0","special_chars":"0","hint_message":"Hint - The password:<br \/><span class=\"wpc_requirement_level\">- Must trigger the Very weak level on the Strength indicator.<\/span><br \/>"};
+      var wpc_text_var = {"pwsL10n":{"empty":"Strength Indicator","short":"Too Short","weak":"Very Weak","bad":"Weak","good":"Medium","strong":"Strong","mismatch":"Password Mismatch","mixed_case":"Needs Mixed Case","numbers":"Needs Numbers","special_chars":"Needs Special Chars","blacklist":"Password in Blacklist"}};
+      var wpc_password_protect = {"blackList":["password","qwerty","123456789"],"min_length":"1","strength":"5","mixed_case":"0","numeric_digits":"0","special_chars":"0","hint_message":"Hint - The password:<br \/><span class=\"wpc_requirement_level\">- Must trigger the Very weak level on the Strength indicator.<\/span><br \/>"};
       /!*  */
     script src="https://www.mailterapia.com/wp-content/plugins/wp-client/js/password_protect.js?ver=4.1.1" type="text/javascript"

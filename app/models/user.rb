@@ -7,13 +7,22 @@ class User < ActiveRecord::Base
   belongs_to :consultation_type
   has_many :wordbank_items, class_name: 'UserWordbankItem'
 
-  validates :name, :email, presence: true
+  validates :nombre, :apellido, :email, presence: true
   validates :email, uniqueness: true
+  validates :condiciones_de_servicio, acceptance: true, on: :create, allow_nil: false
 
   enum role: [:user, :admin]
   after_initialize :set_default_role, :if => :new_record?
 
-  after_create :send_email
+  after_create :send_email, :subscribe_to_newsletter
+
+  attr_accessor :condiciones_de_servicio, :newsletter
+
+  after_initialize :initialize_with_defaults, if: :new_record?
+
+  def initialize_with_defaults
+    @newsletter ||= true
+  end
 
   def send_email
     password = Devise.friendly_token.first(8)
@@ -23,8 +32,30 @@ class User < ActiveRecord::Base
     TransactionMailer.notification_new_user(self).deliver
   end
 
+  def subscribe_to_newsletter
+    if @newsletter
+      puts "going to register user"
+      # begin
+        response = Rails.configuration.mailchimp.lists.subscribe({
+          id: MAILCHIMP_LIST_ID,
+          email: { email: email },
+          merge_vars: {
+            FNAME: nombre,
+            LNAME: apellido,
+          },
+          double_optin: false,
+        })
+        p response
+      # rescue Gibbon::MailChimpError => e
+      # end
+    else
+      puts "not registering the new user"
+    end
+  end
+
   def set_default_role
     self.role ||= :user
+  rescue
   end
 
   # Include default devise modules. Others available are:
@@ -32,8 +63,12 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable
 
+  def nombre_completo
+    "#{nombre} #{apellido}"
+  end
+
   def generate_slug
-    [ name[0..15] ]
+    [ nombre_completo[0..15] ]
   end
 
   def stripe_customer
@@ -56,7 +91,7 @@ class User < ActiveRecord::Base
   end
 
   def active_service?
-    active_service == 'consulta-360'
+    active_service == 'consulta-express'
   end
 
   def access_to_service?
@@ -66,6 +101,6 @@ class User < ActiveRecord::Base
   end
 
   def service_email
-    "marina-#{slug}@consultas.mailterapia.com"
+    "marina-#{nombre}@mailterapia.com"
   end
 end

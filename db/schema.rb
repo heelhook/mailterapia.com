@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150405071359) do
+ActiveRecord::Schema.define(version: 20150506165003) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 20150405071359) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name"
+    t.string   "nombre"
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
@@ -97,6 +97,7 @@ ActiveRecord::Schema.define(version: 20150405071359) do
     t.string   "slug"
     t.string   "active_service"
     t.string   "dropbox_link"
+    t.string   "apellido"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

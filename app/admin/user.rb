@@ -1,9 +1,9 @@
 ActiveAdmin.register User do
-  permit_params :name, :email, :slug, :password, :password_confirmation, :active_subscription, :active_service, :dropbox_link
+  permit_params :nombre, :apellido, :email, :slug, :password, :password_confirmation, :active_subscription, :active_service, :dropbox_link
 
   index do
     selectable_column
-    column :name
+    column :nombre
     column :email
     column :service_email
     column :created_at
@@ -22,7 +22,8 @@ ActiveAdmin.register User do
 
   form do |f|
     f.inputs "Admin Details" do
-      f.input :name
+      f.input :nombre
+      f.input :apellido
       f.input :email
       f.input :active_subscription
       f.input :active_service
