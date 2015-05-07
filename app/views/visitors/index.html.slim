@@ -4,26 +4,28 @@
       h2.content-section-title
         span Hola #{current_user.nombre}
       h3.content-section-subtitle
-        span Esta es tu area de cliente de mailconsulta.com
+        span Esta es tu area de cliente en mailterapia.com
   .cleared
     .content-column1.column-last
       - if !current_user.access_to_service?
         .info-box.note-box
           .info-box-remove
             i.fa.fa-times
-          h2 No tenes ningun servicio activo
+          h2 Ahora mismo no tienes ningun servicio activo.
 
-          p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          p
+            | ¿Quieres continuar trabajando con nosotros? Elige tu método de consulta para seguir. Si quieres interrumpir tu terapia, te agradeceríamos que nos lo comunicaras
+            |  #{link_to 'contactando con tu terapeuta', "mailto:#{current_user.service_email}"}. ¡Gracias por tu confianza!
       - elsif @first_payment_alert
         #welcome
           .info-box.note-box
             .info-box-remove
               i.fa.fa-times
-            h2 Bienvenido!
+            h2 ¡Te damos la bienvenida a Mailterapia!
 
-            p Aca te vamos a dar la bienvenida y decirte cosas.
+            p Tu camino hacia el cambio empieza hoy.
 
-            p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            p Queremos agradecerte la confianza que has depositado en nosotros y esperamos que saques el máximo provecho de tu terapia por mail. A continuación encontrarás algunos datos importantes para comenzar la terapia.
 
           p[style="text-align: center;"]
             a.big-button.normal-button#welcome-box-continue[href='#'] Continuar
@@ -48,9 +50,9 @@
                   |  Inactiva
             li.li-normal.li-black
               i.fa.fa-envelope-o
-              | Consulta 360:
+              | Consulta exprés:
               b
-                - if current_user.active_service == 'consulta-360'
+                - if current_user.active_service == 'consulta-expres'
                   |  Contratada
                 - else
                   |  Inactiva
@@ -77,23 +79,33 @@
                 .team-subtitle
                   | Fundadora y psicóloga clínica
                 .team-content
-                  | Actualmente, Marina es quien atiende la totalidad de las consultas de Mailterapia. ¡Espera contar pronto con ayuda, porque cada vez tiene más trabajo! Le apasiona escribir, la escalada y&nbsp;ser útil a la gente. Vive en Margalef, un pueblecito de Tarragona.
-            .content.column3_1
-              .team-content
-                p
-                  = link_to "Contacta a tu terapeuta ahora", "mailto:#{current_user.service_email}"
+                  | ¡Hola! Soy Marina y atenderé tu consulta en Mailterapia. Estoy encantada de conocerte y te felicito por haber tomado la decisión de dedicar este tiempo y esfuerzo a ti, a tu desarrollo personal y a poner en marcha tu capacidad de cambio. Espero que el trabajo que vamos a hacer juntos supere tus expectativas y que cumplas todos los objetivos que te has marcado. ¡Manos a la obra!
 
             .cleared
 
           .widget-entry
             .column1
               .section-widget-heading
-                h2.section-widget-title Claves para una terapia efectiva
+                h2.section-widget-title Primeros pasos para comenzar tu terapia
                 .title-line
             .column1
               p
-                | No es necesario que seas Cervantes: basta con que te encuentres cómodo poniendo por escrito lo que te preocupa. Te invitamos a que lo pruebes:&nbsp;nuestros clientes encuentran que, a menudo, el acto de poner por escrito los pensamientos y emociones es
-                strong  terapéutico.&nbsp;
+                | A continuación vas a recibir tres mails en tu bandeja de entrada:
+              ul
+                li El primero es un justificante de pago del servicio que has elegido. No hace falta que respondas a ese. En breve te mandaremos una factura completa.
+                li
+                  | El segundo tiene como asunto "consentimiento informado", y es un
+                  b  requisito imprescindible
+                  |  para que comiences la terapia. Contiene información importante y un texto que deberás copiar y reenviar en un nuevo correo. Las instrucciones están en el mail. No te preocupes, es muy sencillo :)
+                li
+                  | El tercero tiene como asunto "comienza tu mailterapia" y contiene las instrucciones para que podamos empezar a comunicarnos de forma efectiva.
+                  br
+                  br
+                  | Echa un vistazo ahora a tu bandeja de entrada, ¡nos vemos allí!
+                  br
+                  br
+                  | ¿Algún problema?
+                  |  #{link_to 'Contacta conmigo ahora', "mailto:#{current_user.service_email}"}.
 
             .cleared
 
@@ -101,11 +113,11 @@
             .widget-entry
               .column1
                 .section-widget-heading
-                  h2.section-widget-title Material Personal
+                  h2.section-widget-title Material de apoyo
                   .title-line
               .column1
                 p
-                  | En este espacio te voy a ir dejando material para asistir con la terapia que estamos haciendo.
+                  | En este espacio encontrarás los enlaces al material que te envíe a lo largo de la terapia, para que puedas encontrarlos todos en un solo lugar.
 
                 p
                   a.normal-button[href=current_user.dropbox_link target="_blank"] Acceder

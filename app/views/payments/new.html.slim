@@ -6,7 +6,7 @@ script src="https://checkout.stripe.com/checkout.js"
       h2.content-section-title
         span Hola #{current_user.nombre}
       h3.content-section-subtitle
-        span Esta es tu area de cliente de mailconsulta.com
+        span Esta es tu area de cliente de mailterapia.com
   .cleared
     .content-column1.column-last
       .widget-entry
@@ -18,7 +18,7 @@ script src="https://checkout.stripe.com/checkout.js"
       .widget-entry
         .column1
           .section-widget-heading
-            h2.section-widget-title Elegí tu método de consulta
+            h2.section-widget-title Elige tu modalidad de consulta
             .title-line
         .cleared
         .column1
@@ -29,13 +29,13 @@ script src="https://checkout.stripe.com/checkout.js"
                   i.fa.fa.fa-check
             .icon-box-right
               .icon-box-name
-                | Consulta 360
+                | Consulta exprés
               .icon-box-content
                 p
-                  | Nuestro servicio de consulta inicial más intensivo, completo y orientado a las soluciones. A lo largo de varios mails, realizaremos una valoración completa de tu problema, seguida por una devolución exhaustiva y centrada en darte recursos y ofrecerte lineas de acción claras.
+                  | Para dudas puntuales sobre un tema concreto. Envía tu consulta y recibe una respuesta en un plazo de entre 2 y 3 días laborables.
 
                 p
-                  a.normal-button.choose_plan[href='#' data-name="consulta-360"] Contratar Consulta 360 (100 € + IVA)
+                  a.normal-button.choose_plan[href='#' data-name="consulta-expres"] Contratar Consulta expres (45 €)
             .cleared
           .icon-box
             .icon-box-left
@@ -44,15 +44,15 @@ script src="https://checkout.stripe.com/checkout.js"
                   i.fa.fa.fa-check
             .icon-box-right
               .icon-box-name
-                | Bono de WordBank para consulta expres o seguimiento
+                | Bono de WordBank
               .icon-box-content
                 p
                   | WordBank funciona igual que un bono de minutos o datos para tu teléfono móvil: contrata bloques de palabras por un precio fijo y utilízalas a medida que te haga falta.
 
                 p
-                  a.normal-button.choose_plan[href='#' data-name="wordbank-20"] 20 € + IVA (500 palabras)
-                  a.normal-button.choose_plan[href='#' data-name="wordbank-35"] 35 € + IVA (1000 palabras)
-                  a.normal-button.choose_plan[href='#' data-name="wordbank-60"] 60 € + IVA (2000 palabras)
+                  a.normal-button.choose_plan[href='#' data-name="wordbank-20"] 30 € (500 palabras)
+                  a.normal-button.choose_plan[href='#' data-name="wordbank-35"] 45 € (1000 palabras)
+                  a.normal-button.choose_plan[href='#' data-name="wordbank-60"] 75 € (2000 palabras)
             .cleared
           .icon-box
             .icon-box-left
@@ -64,13 +64,13 @@ script src="https://checkout.stripe.com/checkout.js"
                 | Suscripcion Ilimitada
               .icon-box-content
                 p
-                  | Con el plan de suscripción ilimitado podrás recibir apoyo terapéutico por un precio fijo. Puedes escribir tantos mails como quieras y tan largos como quieras: el precio será el mismo.
+                  | Con el plan de suscripción ilimitada podrás recibir apoyo terapéutico por un precio fijo. Puedes escribir tantos mails como quieras y tan largos como quieras: el precio será el mismo.
 
                 p
                   - if current_user.active_subscription?
                     a.normal-button.cancel_plan[href='#' data-name="suscripcion-ilimitada"] Cancelar
                   - else
-                    a.normal-button.choose_plan[href='#' data-name="suscripcion-ilimitada"] Comenzar Suscripción Ilimitada (60 € + IVA cada 15 días)
+                    a.normal-button.choose_plan[href='#' data-name="suscripcion-ilimitada"] Comenzar Suscripción Ilimitada (75 € cada 15 días)
             .cleared
 
           = form_tag method: 'post' do

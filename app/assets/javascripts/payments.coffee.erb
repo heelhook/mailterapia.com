@@ -12,7 +12,7 @@ $ ->
       allowRememberMe: false
       token: (token) ->
         $.ajax
-          url: '/clientes/payments'
+          url: '<%= Rails.application.secrets.application_path %>/payments'
           method: 'post'
           data:
             plan: $('input#plan').val()
@@ -22,7 +22,7 @@ $ ->
     $('.cancel_plan').on 'click', (e) ->
       if confirm('Seguro que quieres cancelar?')
         $.ajax
-          url: '/clientes/payments/suscripcion-ilimitada'
+          url: '<%= Rails.application.secrets.application_path %>/payments/suscripcion-ilimitada'
           method: 'delete'
           complete: -> payment_completed()
 
@@ -37,7 +37,7 @@ $ ->
       if stripe_customer
         if confirm("Para tu comodidad ya no hace falta que vuelvas a ingresar tus datos bancarios. Procederemos al cobro correspondiente.")
           $.ajax
-            url: '/clientes/payments'
+            url: '<%= Rails.application.secrets.application_path %>/payments'
             method: 'post'
             data:
               plan: $('input#plan').val()
@@ -45,7 +45,7 @@ $ ->
       else
         $handler.open(
           switch plan_name
-            when 'consulta-express'
+            when 'consulta-expres'
               description: 'Consulta Express'
               panelLabel: 'Abonar Consulta'
             when 'wordbank-20'
@@ -65,5 +65,5 @@ $ ->
       false
 
   payment_completed = ->
-    $(location).attr('href', '/clientes')
+    $(location).attr('href', '<%= Rails.application.secrets.application_path %>')
 

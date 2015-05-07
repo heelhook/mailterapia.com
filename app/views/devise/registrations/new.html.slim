@@ -16,7 +16,7 @@
                   .info-box.alert-box
                     = devise_error_messages!
                 .section-widget-heading
-                  h2.section-widget-title Un poco sobre vos
+                  h2.section-widget-title Tus datos
                   .title-line
                 .contact-name-field
                   div Nombre
@@ -30,10 +30,10 @@
                 .bottom-spacing-big
                 .section-widget-heading
                   h2.section-widget-title
-                    | Contanos un poco lo que te pasa
+                    | Cuéntanos qué te pasa
                   .title-line
 
-                p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                p Nos gustaría saber qué te gustaría cambiar o conseguir solicitando una consulta en Mailterapia. Si te apetece, resume en algunas frases el motivo de tu consulta. Si no te sale, ¡no te preocupes! Más adelante vas a tener tiempo de sobra para contárnoslo :)
 
                 = f.hidden_field :consultation_type_id
 
@@ -52,7 +52,7 @@
                 .cleared
                 .bottom-spacing-small
                 .contact-text-area
-                  = f.text_area :consultation_description, placeholder: '¿Querés contarnos en unas pocas palabras el tema de la consulta? Esto es opcional; al comenzar la consulta vas a tener mucho espacio para contarnos sobre lo que te esta sucediendo y material para guiarte en como sacar el máximo provecho de tu mailterapia.'
+                  = f.text_area :consultation_description, placeholder: 'Cuéntanos en pocas palabras el motivo de tu consulta (opcional)'
 
                 p
                   label
@@ -66,7 +66,7 @@
                     = f.check_box :newsletter, style: '-webkit-appearance: checkbox; width: 20px; height: 20px;'
                     span Deseo recibir información sobre Mailterapia por email (recomendado)
                 .contact-button.content
-                  = f.submit 'Comenzar a trabajar', :class => 'normal-button', name: 'contact-submit'
+                  = f.submit 'Comenzar', :class => 'normal-button', name: 'contact-submit'
               .cleared
             p &nbsp;
 
