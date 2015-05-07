@@ -12,7 +12,7 @@ $ ->
       allowRememberMe: false
       token: (token) ->
         $.ajax
-          url: '/payments'
+          url: '/clientes/payments'
           method: 'post'
           data:
             plan: $('input#plan').val()
@@ -22,7 +22,7 @@ $ ->
     $('.cancel_plan').on 'click', (e) ->
       if confirm('Seguro que quieres cancelar?')
         $.ajax
-          url: '/payments/suscripcion-ilimitada'
+          url: '/clientes/payments/suscripcion-ilimitada'
           method: 'delete'
           complete: -> payment_completed()
 
@@ -37,7 +37,7 @@ $ ->
       if stripe_customer
         if confirm("Para tu comodidad ya no hace falta que vuelvas a ingresar tus datos bancarios. Procederemos al cobro correspondiente.")
           $.ajax
-            url: '/payments'
+            url: '/clientes/payments'
             method: 'post'
             data:
               plan: $('input#plan').val()
@@ -65,5 +65,5 @@ $ ->
       false
 
   payment_completed = ->
-    $(location).attr('href', '/')
+    $(location).attr('href', '/clientes')
 
