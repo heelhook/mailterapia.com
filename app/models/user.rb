@@ -91,7 +91,7 @@ class User < ActiveRecord::Base
   end
 
   def active_service?
-    active_service == 'consulta-express'
+    active_service == 'consulta-expres'
   end
 
   def access_to_service?
