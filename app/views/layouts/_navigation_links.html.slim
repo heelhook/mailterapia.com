@@ -1,8 +1,22 @@
 - if user_signed_in?
+  - if current_user.access_to_communication?
+    li.menu-item.menu-item-type-post_type.menu-item-object-page
+      a href=root_path
+        i.fa.fa-comment
+        |  Mi Area de Consulta
+  - if current_user.access_to_communication?
+    li.menu-item.menu-item-type-post_type.menu-item-object-page
+      a[href=messages_path]
+        i.fa.fa-envelope
+        |  Bandeja de Entrada
   li.menu-item.menu-item-type-post_type.menu-item-object-page
-    a href=edit_user_registration_path  Mi cuenta
+    a href=edit_user_registration_path
+      i.fa.fa-user
+      |  Mis Datos
   li.menu-item.menu-item-type-post_type.menu-item-object-page
-    = link_to 'Cerrar Sesión', destroy_user_session_path, :method=>'delete'
+    a[href=destroy_user_session_path rel="nofollow" data-method="delete"]
+      i.fa.fa-circle-o-notch
+      |  Cerrar Sesión
 - else
   li.menu-item.menu-item-type-post_type.menu-item-object-page
     = link_to 'Iniciar sesión', new_user_session_path

@@ -118,6 +118,11 @@ GEM
       devise (>= 3.2.0)
     domain_name (0.5.23)
       unf (>= 0.0.5, < 1.0.0)
+    draper (2.1.0)
+      actionpack (>= 3.0)
+      activemodel (>= 3.0)
+      activesupport (>= 3.0)
+      request_store (~> 1.0)
     erubis (2.7.0)
     excon (0.45.1)
     execjs (2.4.0)
@@ -242,6 +247,7 @@ GEM
       i18n
       polyamorous (~> 1.1)
     ref (1.0.5)
+    request_store (1.1.0)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
     rest-client (1.8.0)
@@ -339,6 +345,7 @@ DEPENDENCIES
   devise
   devise-i18n
   devise_invitable
+  draper
   font-awesome-rails
   friendly_id
   gibbon

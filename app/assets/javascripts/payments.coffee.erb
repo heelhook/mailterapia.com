@@ -5,8 +5,8 @@ $ ->
     $handler = StripeCheckout.configure
       key: stripe_api_public
       image: "https://stripe.com/img/documentation/checkout/marketplace.png"
-      name: "MailTerapia"
-      description: "Enter your details to continue"
+      name: "Mailterapia"
+      description: "Introduce tus datos para continuar"
       email: $('#email').val()
       currency: 'EUR'
       allowRememberMe: false
@@ -46,16 +46,19 @@ $ ->
         $handler.open(
           switch plan_name
             when 'consulta-expres'
-              description: 'Consulta Express'
+              description: 'Consulta Exprés'
               panelLabel: 'Abonar Consulta'
-            when 'wordbank-20'
-              description: 'Bono 20 €'
+            when 'wordbank-25'
+              description: 'Bono 500 palabras'
               panelLabel: 'Cargar WordBank'
-            when 'wordbank-35'
-              description: 'Bono 35 €'
+            when 'wordbank-45'
+              description: 'Bono 1000 palabras'
               panelLabel: 'Cargar WordBank'
             when 'wordbank-60'
-              description: 'Bono 60 €'
+              description: 'Bono 1500 palabras'
+              panelLabel: 'Cargar WordBank'
+            when 'wordbank-75'
+              description: 'Bono 2000 palabras'
               panelLabel: 'Cargar WordBank'
             when 'suscripcion-ilimitada'
               description: 'Suscripcion Ilimitada'

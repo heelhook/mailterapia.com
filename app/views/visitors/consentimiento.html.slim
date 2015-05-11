@@ -1,0 +1,44 @@
+.wrap-column
+  .column1.content
+    .content-section-heading
+      h2.content-section-title
+        span Paso 1: Rellena el Consentimiento Informado
+    p
+      = "Lo primero que necesito para que comencemos la terapia es tu "
+      strong consentimiento informado
+      | .
+      = " Para ello, lee atentamente la información que viene a continuación. Después, introduce los datos que te solicitamos (nombre, apellidos y DNI; "
+      strong todos
+      |  son obligatorios) y pulsa “continuar”.
+    div style=("font-size:0.8em; border: solid #cccccc 1px; background-color: #f7f7f7; padding: 0.5em 1em; height: 300px; overflow: auto;")
+      p
+        strong Información importante sobre la terapia vía mail:
+      p Toda la información necesaria acerca de la naturaleza y propósito de los objetivos, procedimientos, temporalidad y honorarios que se seguirán a lo largo del proceso terapéutico está explicada de forma clara y comprensible en los distintos apartados de la web  www.mailterapia.com. Por favor, revísala hasta que consideres que dispones de la información que necesitas. Si te queda alguna duda, pregúntamela contestando a este correo.
+      p Puedes consultar las condiciones del servicio aquí: www.mailterapia.com/condiciones-del-servicio
+      p
+        strong Información sobre la política de privacidad:
+      p Los datos personales que se recogen y envían desde los formularios de contratación y contacto de Mailterapia, así como los correos electrónicos que se intercambien a lo largo de la atención psicológica que recibas serán objeto de tratamiento manual y/o automático y se incorporarán a un fichero debidamente registrado en la Agencia Española de Protección de Datos.
+      p La recogida y tratamiento de los datos personales tiene como finalidad el mantenimiento de la relación contractual que en cada caso se establezca con Mailterapia, así como la gestión, administración, información, prestación y mejora de los servicios que el usuario decida contratar.
+      p
+        strong> Es obligatorio que proporciones tu nombre completo y tu DNI
+        | , a efectos de notificación y emisión de facturas.
+      p El resto de los datos que te solicitaremos son facultativos, es decir: puedes elegir no proporcionarlos. No obstante, reservarte algunos de los datos solicitados puede interferir con la provisión de una atención terapéutica óptima.
+      p Tus datos no serán cedidos a terceros sin su consentimiento. El responsable de estos servicios respetará en todo momento el secreto profesional y la confidencialidad de tus datos, aplicando las medidas de seguridad establecidas para impedir el acceso o uso indebido de tus datos, su manipulación, deterioro o pérdida. según conformidad con la Ley Orgánica 15/1999, de 13 de diciembre, sobre Protección de Datos de Carácter Personal (LOPD).
+      p En cumplimiento de lo establecido en la LOPD y el Real Decreto 1720/2007, de 21 de diciembre, por el que se aprueba el Reglamento de desarrollo de la misma, el destinatario del servicio puede ejercitar, en cualquier momento, sus derechos de acceso, rectificación, cancelación y oposición ante el responsable del fichero o del tratamiento, adjuntando copia de su DNI.
+      p Para ello puedes dirigirte a la responsable de este fichero, Marina Díaz Carmona, con dirección a efectos de notificaciones en el siguiente correo electrónico: marina@mailterapia.com
+    br/
+    h2  Para poder comenzar con tu mailterapia, completa el formulario y pulsa "enviar".
+    = form_tag do
+      p
+        = "Yo "
+        = text_field_tag :nombre_completo, params[:nombre_completo], placeholder: 'Introduce tu nombre'
+        = ", con DNI "
+        = text_field_tag :id, params[:id], placeholder: 'Introduce tu DNI'
+        |  manifiesto que:
+      p
+        i He recibido toda la información necesaria de forma clara, comprensible y satisfactoria sobre la naturaleza y propósito de los objetivos, procedimientos, temporalidad y honorarios que se seguirán a lo largo del proceso terapéutico, aplicándose los artículos referidos a las normas de confidencialidad establecidas en el Código Deontológico de los/as Psicólogos/as.
+      p
+        i Asimismo, conozco la información relativa a la política de privacidad seguida por Marina Díaz Carmona en www.mailterapia.com y en las comunicaciones vía mail que establezcamos en el contexto de la terapia. También acepto las condiciones del servicio expuestas en www.mailterapia.com/condiciones-del-servicio.
+
+      input.normal-button[type="submit" value="Enviar"]
+.cleared

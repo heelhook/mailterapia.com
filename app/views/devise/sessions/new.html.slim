@@ -33,7 +33,7 @@
             .contact-name-field
               div Password
               = f.password_field :password, class: 'contact-name', style: 'width: 88%;'
-            = f.submit 'Ingresar', :class => 'normal-button'
+            = f.submit 'Iniciar Sesión', :class => 'normal-button'
             = f.hidden_field :remember_me, value: true
             = link_to "¿Olvidaste tu contraseña?", new_password_path(resource_name)
   .cleared

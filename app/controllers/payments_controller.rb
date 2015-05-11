@@ -20,24 +20,29 @@ class PaymentsController < ApplicationController
 
     case params[:plan]
     when 'consulta-expres'
-      amount = 12100
+      amount = 4500
       service = 'consulta-expres'
       service_name = 'Consulta expres'
       comienzo_terapia_template_name = 'consulta-expres'
-    when 'wordbank-20'
+    when 'wordbank-25'
       wordbank_balance = 500
-      amount = 2420
-      service_name = 'Bono WordBank 20 EUR'
+      amount = 2500
+      service_name = 'Bono WordBank 500 palabras'
       comienzo_terapia_template_name = 'wordbank'
-    when 'wordbank-35'
+    when 'wordbank-45'
       wordbank_balance = 1000
-      amount = 4235
-      service_name = 'Bono WordBank 35 EUR'
+      amount = 4500
+      service_name = 'Bono WordBank 1000 palabras'
       comienzo_terapia_template_name = 'wordbank'
     when 'wordbank-60'
+      wordbank_balance = 1500
+      amount = 6000
+      service_name = 'Bono WordBank 1500 palabras'
+      comienzo_terapia_template_name = 'wordbank'
+    when 'wordbank-75'
       wordbank_balance = 2000
-      amount = 7260
-      service_name = 'Bono WordBank 60 EUR'
+      amount = 7500
+      service_name = 'Bono WordBank 2000 palabras'
       comienzo_terapia_template_name = 'wordbank'
     when 'suscripcion-ilimitada'
       type = :subscription
@@ -79,10 +84,6 @@ class PaymentsController < ApplicationController
     end
 
     TransactionMailer.notification_payment(current_user, amount/100.0, service_name).deliver
-
-    if session[:first_payment]
-      TransactionMailer.comienzo_terapia(current_user, comienzo_terapia_template_name).deliver
-    end
 
     flash[:notice] = '¡El pago se  ha realizado con éxito! Comienza a trabajar con tu terapeuta'
 

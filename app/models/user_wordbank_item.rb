@@ -1,5 +1,5 @@
 class UserWordbankItem < ActiveRecord::Base
   belongs_to :user
 
-  delegate :name, to: :user, prefix: true
+  delegate :nombre_completo, to: :user, prefix: true
 end

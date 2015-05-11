@@ -14,6 +14,7 @@ class TransactionMailer < MandrillMailer::TemplateMailer
       },
       vars: {
         'NAME' => user.nombre_completo,
+        'EMAIL' => user.email,
         'SUBJECT' => @subject,
         'PASSWORD' => password,
         'SERVICE_EMAIL' => user.service_email,
@@ -52,7 +53,6 @@ class TransactionMailer < MandrillMailer::TemplateMailer
 
   def notification_payment(user, amount, service)
     @subject = "Hemos recibido tu pago correctamente"
-    amount = sprintf "%.02f", amount
     mandrill_mail(
       template: 'notification-payment',
       from: user.service_email,
@@ -66,8 +66,8 @@ class TransactionMailer < MandrillMailer::TemplateMailer
       },
       vars: {
         'NAME' => user.nombre_completo,
-        'AMOUNT' => amount,
         'SERVICE' => service,
+        'AMOUNT' => amount,
         'SUBJECT' => @subject,
         'SERVICE_EMAIL' => user.service_email,
       },
@@ -77,20 +77,38 @@ class TransactionMailer < MandrillMailer::TemplateMailer
     )
   end
 
-  def comienzo_terapia(user, service)
+  def new_message_notification(message)
     mandrill_mail(
-      template: "comienzo-terapia-#{service}",
-      from: user.service_email,
-      reply_to: user.service_email,
-      from: user.service_email,
-      bcc: 'marinadiazc@gmail.com',
+      template: "notification-message",
+      from: message.from.email,
       to: {
-        email: user.email,
-        name: user.nombre_completo,
+        email: message.to.email,
+        name: message.to.nombre_completo,
       },
       vars: {
-        'NAME' => user.nombre_completo,
-        'SERVICE_EMAIL' => user.service_email,
+        'NAME' => message.to.nombre,
+        'SUBJECT' => message.subject,
+        'LINK_MESSAGE' => "https://www.mailterapia.com/clientes/mensajes/#{message.id}",
+      },
+      important: true,
+      inline_css: true,
+      async: true,
+    )
+  end
+
+  def consentimiento_informado(user, nombre, id)
+    mandrill_mail(
+      template: "consentimiento-informado",
+      from: user.email,
+      to: {
+        email: "marinadiazc@gmail.com",
+        name: "Marina Diaz",
+      },
+      vars: {
+        'EMAIL' => user.email,
+        'NOMBRE_EN_FORMULARIO' => nombre,
+        'ID' => id,
+        'FECHA' => Date.today.strftime('%d/%m/%Y'),
       },
       important: true,
       inline_css: true,

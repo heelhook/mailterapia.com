@@ -1,0 +1,38 @@
+.wrap-column
+  .column1
+    .content-section-heading
+      h2.content-section-title
+        span Mensaje
+  .cleared
+    .content-column1.column-last
+      .widget-entry
+        .column1
+          .content.content-box-content
+            .contact-form#message
+              .contact-name-field
+                div Para
+                span= Message.default_recipient.nombre_completo
+              .contact-name-field
+                div Asunto
+                = @message.subject
+              .message-display
+                = simple_format @message.body
+              / # = f.submit 'Responder', :class => 'normal-button'
+              = form_for @reply do |f|
+                = f.submit 'Responder', class: 'normal-button', id: 'reply'
+                = f.hidden_field :to_id
+                = f.hidden_field :subject
+                = f.hidden_field :in_reply_to_id
+                = f.hidden_field :status
+                = f.text_area :body, id: 'message_body_real'
+                .message-container
+                  #message_body
+                    br
+                    br
+                    hr
+                    - @reply.body_for_editor.split(/\n/).each do |paragraph|
+                      blockquote= simple_format paragraph
+                  = f.submit 'Enviar', :class => 'normal-button', id: 'send'
+                  = f.submit 'Guardar Borrador', class: 'normal-button', id: 'save-draft'
+
+    .cleared

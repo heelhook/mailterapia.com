@@ -17,6 +17,11 @@ script src="https://checkout.stripe.com/checkout.js"
       /! end widget entry
       .widget-entry
         .column1
+          .info-box.note-box
+            .info-box-remove
+              i.fa.fa-times
+            | Mailterapia utiliza Stripe;
+            |  un sistema de pago con tarjeta usado por miles de empresas en todo el mundo y con certificado PCI de nivel 1 (el nivel más exigente de seguridad para las transacciones con tarjetas de pago).&nbsp;
           .section-widget-heading
             h2.section-widget-title Elige tu modalidad de consulta
             .title-line
@@ -35,7 +40,7 @@ script src="https://checkout.stripe.com/checkout.js"
                   | Para dudas puntuales sobre un tema concreto. Envía tu consulta y recibe una respuesta en un plazo de entre 2 y 3 días laborables.
 
                 p
-                  a.normal-button.choose_plan[href='#' data-name="consulta-expres"] Contratar Consulta expres (45 €)
+                  a.normal-button.choose_plan[href='#' data-name="consulta-expres"] Contratar Consulta exprés (45 €)
             .cleared
           .icon-box
             .icon-box-left
@@ -50,9 +55,10 @@ script src="https://checkout.stripe.com/checkout.js"
                   | WordBank funciona igual que un bono de minutos o datos para tu teléfono móvil: contrata bloques de palabras por un precio fijo y utilízalas a medida que te haga falta.
 
                 p
-                  a.normal-button.choose_plan[href='#' data-name="wordbank-20"] 30 € (500 palabras)
-                  a.normal-button.choose_plan[href='#' data-name="wordbank-35"] 45 € (1000 palabras)
-                  a.normal-button.choose_plan[href='#' data-name="wordbank-60"] 75 € (2000 palabras)
+                  a.normal-button.choose_plan[href='#' data-name="wordbank-25"] 25 € (500 palabras)
+                  a.normal-button.choose_plan[href='#' data-name="wordbank-45"] 45 € (1000 palabras)
+                  a.normal-button.choose_plan[href='#' data-name="wordbank-60"] 60 € (1500 palabras)
+                  a.normal-button.choose_plan[href='#' data-name="wordbank-75"] 75 € (2000 palabras)
             .cleared
           .icon-box
             .icon-box-left
@@ -70,7 +76,7 @@ script src="https://checkout.stripe.com/checkout.js"
                   - if current_user.active_subscription?
                     a.normal-button.cancel_plan[href='#' data-name="suscripcion-ilimitada"] Cancelar
                   - else
-                    a.normal-button.choose_plan[href='#' data-name="suscripcion-ilimitada"] Comenzar Suscripción Ilimitada (75 € cada 15 días)
+                    a.normal-button.choose_plan[href='#' data-name="suscripcion-ilimitada"] Comenzar Suscripción Ilimitada (75 € cada dos semanas)
             .cleared
 
           = form_tag method: 'post' do

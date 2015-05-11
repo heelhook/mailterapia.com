@@ -2,9 +2,9 @@
   .column1
     .content-section-heading
       h2.content-section-title
-        span Hola #{current_user.nombre}
+        span Hola, #{current_user.nombre}
       h3.content-section-subtitle
-        span Esta es tu area de cliente en mailterapia.com
+        span Esta es tu area de consulta en mailterapia.com
   .cleared
     .content-column1.column-last
       - if !current_user.access_to_service?
@@ -15,7 +15,7 @@
 
           p
             | ¿Quieres continuar trabajando con nosotros? Elige tu método de consulta para seguir. Si quieres interrumpir tu terapia, te agradeceríamos que nos lo comunicaras
-            |  #{link_to 'contactando con tu terapeuta', "mailto:#{current_user.service_email}"}. ¡Gracias por tu confianza!
+            |  #{link_to 'contactando con tu terapeuta', new_message_path}. ¡Gracias por tu confianza!
       - elsif @first_payment_alert
         #welcome
           .info-box.note-box
@@ -61,53 +61,41 @@
             a.normal-button[href=new_payment_path] Contratar otros servicios
         .cleared
 
-        - if current_user.access_to_service?
-          .widget-entry
-            .column1
-              .section-widget-heading
-                h2.section-widget-title Tu Terapeuta
-                .title-line
-            .content.column3_1
-              .team.widget-element-bottom
-                .team-thumb
-                  img src="http://www.mailterapia.com/wp-content/uploads/2014/09/Marina-redonda.png" /
+        .widget-entry[style="margin-top: 2em;"]
+          .column1
+            .section-widget-heading
+              h2.section-widget-title Tu Terapeuta
+              .title-line
+          .content.column3_1
+            .team.widget-element-bottom
+              .team-thumb
+                img src="https://www.mailterapia.com/wp-content/uploads/2015/05/Untitled-design-9.png" /
+            .cleared
+          .content.column3_2
+            .team-heading
+              .team-name
+                | MARINA DÍAZ
+              .team-subtitle
+                | Fundadora y psicóloga clínica
+              .team-content
+                div[style="margin-top: 1em;"]
+                  - if current_user.my_messages.empty?
+                    | ¡Hola! Soy Marina y atenderé tu consulta en Mailterapia. Estoy encantada de conocerte y te felicito por haber tomado la decisión de dedicar este tiempo y esfuerzo a ti, a tu desarrollo personal y a poner en marcha tu capacidad de cambio. Espero que el trabajo que vamos a hacer juntos supere tus expectativas y que cumplas todos los objetivos que te has marcado. ¡Manos a la obra!
+                  - else
+                    | ¡Hola! Soy Marina y atiendo tu consulta en Mailterapia. Te felicito por haber tomado la decisión de dedicar este tiempo y esfuerzo a ti, a tu desarrollo personal y a poner en marcha tu capacidad de cambio. Espero que el trabajo que estamos haciendo juntos supere tus expectativas y que cumplas todos los objetivos que te has marcado. ¡Manos a la obra!
+
               .cleared
-            .content.column3_2
-              .team-heading
-                .team-name
-                  | MARINA DÍAZ
-                .team-subtitle
-                  | Fundadora y psicóloga clínica
-                .team-content
-                  | ¡Hola! Soy Marina y atenderé tu consulta en Mailterapia. Estoy encantada de conocerte y te felicito por haber tomado la decisión de dedicar este tiempo y esfuerzo a ti, a tu desarrollo personal y a poner en marcha tu capacidad de cambio. Espero que el trabajo que vamos a hacer juntos supere tus expectativas y que cumplas todos los objetivos que te has marcado. ¡Manos a la obra!
 
-            .cleared
+                - if !current_user.access_to_service?
+                  a.normal-button[href=new_payment_path] Recarga tu cuenta
+                - elsif !current_user.agreed_consentimiento_informado
+                  a.normal-button[href=consentimiento_informado_path] Continuar
+                - elsif current_user.my_messages.empty?
+                  a.normal-button[href=informacion_comienzo_path] Continuar
+                - else
+                  a.normal-button[href=messages_path] Ir a tu Bandeja de Entrada
 
-          .widget-entry
-            .column1
-              .section-widget-heading
-                h2.section-widget-title Primeros pasos para comenzar tu terapia
-                .title-line
-            .column1
-              p
-                | A continuación vas a recibir tres mails en tu bandeja de entrada:
-              ul
-                li El primero es un justificante de pago del servicio que has elegido. No hace falta que respondas a ese. En breve te mandaremos una factura completa.
-                li
-                  | El segundo tiene como asunto "consentimiento informado", y es un
-                  b  requisito imprescindible
-                  |  para que comiences la terapia. Contiene información importante y un texto que deberás copiar y reenviar en un nuevo correo. Las instrucciones están en el mail. No te preocupes, es muy sencillo :)
-                li
-                  | El tercero tiene como asunto "comienza tu mailterapia" y contiene las instrucciones para que podamos empezar a comunicarnos de forma efectiva.
-                  br
-                  br
-                  | Echa un vistazo ahora a tu bandeja de entrada, ¡nos vemos allí!
-                  br
-                  br
-                  | ¿Algún problema?
-                  |  #{link_to 'Contacta conmigo ahora', "mailto:#{current_user.service_email}"}.
-
-            .cleared
+          .cleared
 
           - if current_user.dropbox_link
             .widget-entry

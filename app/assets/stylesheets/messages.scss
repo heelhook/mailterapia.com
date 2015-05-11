@@ -1,0 +1,79 @@
+//= require 'pen'
+
+table.table {
+  width: 100%;
+  margin-bottom: 5em;
+
+  thead {
+    background-color: #222c3c;
+    color: white;
+
+    th {
+      font-weight: bold;
+      padding: 0.25em 1em;
+      text-align: left;
+    }
+  }
+
+  tr {
+    border-bottom: solid #cccccc 1px;
+
+    td {
+      padding: 0.25em 1em;
+    }
+
+    &.unread {
+      background-color: #f7f7f7;
+
+      td {
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.message-container, .message-display {
+  border: solid #cccccc 1px;
+  padding: 1em;
+  min-height: 500px;
+
+  #message_body {
+    min-height: 500px;
+
+    text-transform: none;
+  }
+}
+
+#message_body_real {
+  display: none;
+}
+
+body.messages.show {
+  .message-container {
+    display: none;
+  }
+}
+
+#message, #message_body, .message-display {
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 1.5em;
+  text-transform: none;
+
+  p {
+    margin: 0px;
+    padding: 0px 0px 20px 0px;
+    font-size: 18px;
+    font-weight: normal;
+    line-height: 1.5em;
+  }
+
+  blockquote {
+    background: transparent;
+    color: #888888;
+    font-weight: normal;
+    padding: 0px;
+    padding-left: 20px;
+    margin: 0;
+  }
+}

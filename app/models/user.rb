@@ -6,6 +6,11 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   belongs_to :consultation_type
   has_many :wordbank_items, class_name: 'UserWordbankItem'
+  has_many :messages, foreign_key: :to_id
+  has_many :my_messages, class_name: 'Message', foreign_key: :from_id
+  has_many :unread_messages, -> { unread }, class_name: 'Message', foreign_key: :to_id
+  has_many :read_messages, -> { read }, class_name: 'Message', foreign_key: :to_id
+  has_many :draft_messages, -> { draft }, class_name: 'Message', foreign_key: :from_id
 
   validates :nombre, :apellido, :email, presence: true
   validates :email, uniqueness: true
@@ -33,9 +38,11 @@ class User < ActiveRecord::Base
   end
 
   def subscribe_to_newsletter
-    if @newsletter
+    puts "Newsletter"
+    p @newsletter
+    if @newsletter != "0"
       puts "going to register user"
-      # begin
+      begin
         response = Rails.configuration.mailchimp.lists.subscribe({
           id: MAILCHIMP_LIST_ID,
           email: { email: email },
@@ -46,8 +53,8 @@ class User < ActiveRecord::Base
           double_optin: false,
         })
         p response
-      # rescue Gibbon::MailChimpError => e
-      # end
+      rescue Gibbon::MailChimpError => e
+      end
     else
       puts "not registering the new user"
     end
@@ -82,6 +89,14 @@ class User < ActiveRecord::Base
     customer && customer.sources.all(object: 'card').count > 0
   end
 
+  def service
+    case
+    when active_service == 'consulta-expres' then 'consulta-expres'
+    when active_subscription == 'suscripcion-ilimitada' then 'suscripcion-ilimitada'
+    when wordbank_balance > 0 then 'wordbank'
+    end
+  end
+
   def wordbank_balance
     wordbank_items.inject(0) { |mem, var| mem += var.word_count }
   end
@@ -97,10 +112,15 @@ class User < ActiveRecord::Base
   def access_to_service?
     wordbank_balance > 0 ||
     active_subscription? ||
-    active_service?
+    active_service? ||
+    admin?
+  end
+
+  def access_to_communication?
+    stripe_token || admin?
   end
 
   def service_email
-    "marina-#{nombre}@mailterapia.com"
+    "marina@mailterapia.com"
   end
 end

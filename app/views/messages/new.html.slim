@@ -1,0 +1,64 @@
+.wrap-column
+  .column1
+    .content-section-heading
+      h2.content-section-title
+        - if @message.in_reply_to
+          span Nueva Respuesta
+        - else
+          span Nuevo Mensaje
+
+    - if current_user.service == 'consulta-expres' && !current_user.my_messages.any?
+      .info-box.note-box
+        .info-box-remove
+          i.fa.fa-times
+        h3 ¡Recuerda las claves para una consulta efectiva!
+
+        div 1) Ve a la clave del problema&nbsp;
+        div 2) Cuéntame tu teoría
+        div 3) ¿Qué soluciones has intentado?
+        div 4) ¿Cuáles son tus objetivos?
+        div 5) ¿Por qué te has decidido a consultar ahora?
+    - if (current_user.service == 'suscripcion-ilimitada' || current_user.service == 'wordbank') && !current_user.my_messages.any?
+      .info-box.note-box
+        .info-box-remove
+          i.fa.fa-times
+        p
+          b ¿Qué quieres conseguir trabajando conmigo?
+          |  Céntrate en la cuestión que te preocupa y tómate tu tiempo para expresarla de la forma más clara posible. Trata de enfocarte en el problema y en las áreas que consideras relacionadas con él. Imagina que estás respondiendo a la pregunta "¿qué te pasa?" y contesta con naturalidad.
+  .cleared
+    .content-column1.column-last
+      .widget-entry
+        .column1
+          .content.content-box-content
+            .contact-form#message
+              = form_for @message do |f|
+                = f.hidden_field :in_reply_to_id
+                = f.hidden_field :status
+                .contact-name-field
+                  div Para
+                  - if current_user.admin?
+                    = f.collection_select :to_id, User.all, :id, :nombre_completo
+                  - else
+                    = f.hidden_field :to_id
+                    span= @message.to.nombre_completo
+                .contact-name-field
+                  div Asunto
+                  - if @message.in_reply_to
+                    = @message.subject
+                  - else
+                    = f.text_field :subject, :autofocus => true, class: 'contact-name'
+                p[style='font-size: 0.7em; color: #aaaaaa; margin: 0; padding: 0;'] (Selecciona el texto para dar formato)
+                .contact-name-field
+                  = f.text_area :body, id: 'message_body_real'
+                  .message-container
+                    #message_body
+                      = @message.body_for_editor.html_safe
+                = f.submit 'Enviar', :class => 'normal-button', id: 'send'
+                = f.submit 'Guardar Borrador', class: 'normal-button', id: 'save-draft'
+    .cleared
+
+    - if current_user.service == 'consulta-expres'
+      p[style='color: #aaaaaa; font-size: 0.9em;']
+        = "El tiempo medio de respuesta para la Consulta Exprés es de "
+        strong 2-3 días laborables
+        | , aunque puede ser mayor en función de la extensión de tu mensaje. Si dentro de 4-5 días no has recibido respuesta, por favor, escríbeme de nuevo para ver si hay algún problema o si no he recibido tu mensaje.&nbsp;
