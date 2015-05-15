@@ -14,6 +14,7 @@
             th De
             th Para
             th Fecha
+            th
         tbody
           - @inbox.each do |message|
             tr[class="#{message.status}"]
@@ -21,6 +22,9 @@
               td= message.from.nombre_completo
               td= message.to.nombre_completo
               td Hace #{distance_of_time_in_words_to_now message.created_at}
+              td
+                - if ! current_user.admin?
+                  = link_to "Borrar", message_path(message), method: :delete, class: 'delete-mail'
   .cleared
 
   - if @sent.any?
@@ -37,6 +41,7 @@
               th De
               th Para
               th Fecha
+              th
           tbody
             - @sent.each do |message|
               tr
@@ -44,6 +49,9 @@
                 td= message.from.nombre_completo
                 td= message.to.nombre_completo
                 td Hace #{distance_of_time_in_words_to_now message.created_at}
+                td
+                  - if ! current_user.admin?
+                    = link_to "Borrar", message_path(message), method: :delete, class: 'delete-mail'
     .cleared
 
   - if @drafts.any?
@@ -68,5 +76,5 @@
                 td= message.from.nombre_completo
                 td= message.to.nombre_completo
                 td Hace #{distance_of_time_in_words_to_now message.created_at}
-                td= link_to "Borrar", message_path(message), method: :delete
+                td= link_to "Borrar", message_path(message), method: :delete, class: 'delete-mail'
     .cleared

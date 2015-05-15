@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150511084923) do
+ActiveRecord::Schema.define(version: 20150515100903) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -59,9 +59,10 @@ ActiveRecord::Schema.define(version: 20150511084923) do
     t.string   "subject"
     t.text     "body"
     t.integer  "status"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.integer  "in_reply_to_id"
+    t.boolean  "visible_to_user", default: true
   end
 
   add_index "messages", ["from_id"], name: "index_messages_on_from_id"

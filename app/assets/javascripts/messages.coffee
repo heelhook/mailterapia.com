@@ -6,6 +6,10 @@ $ ->
     window.editor = new Pen('#message_body')
   , 250
 
+  $('body').on 'click', '.delete-mail', (e) ->
+    if ! confirm("¿Seguro que deseas borrar este mensaje? No podrás recuperarlo luego.")
+      return false
+
   $('form#new_message,form.edit_message').on 'submit', (e) ->
     html = $('#message_body').html()
     window.editor.destroy()

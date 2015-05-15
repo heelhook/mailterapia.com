@@ -6,6 +6,8 @@ class MessagesController < ApplicationController
   def index
     @inbox = current_user.unread_messages | current_user.read_messages
     @sent =  current_user.my_messages - current_user.draft_messages
+    @inbox = @inbox.reject { |message| ! message.visible_to_user } if ! current_user.admin?
+    @sent = @sent.reject { |message| ! message.visible_to_user } if ! current_user.admin?
     @drafts = current_user.draft_messages
   end
 
@@ -65,6 +67,8 @@ class MessagesController < ApplicationController
   def destroy
     if @message.draft?
       @message.destroy
+    else
+      @message.update_attributes(visible_to_user: false)
     end
 
     respond_with @message, location: -> { messages_path }
