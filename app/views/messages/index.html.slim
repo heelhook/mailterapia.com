@@ -60,6 +60,7 @@
               th De
               th Para
               th Fecha
+              th
           tbody
             - @drafts.each do |message|
               tr
@@ -67,4 +68,5 @@
                 td= message.from.nombre_completo
                 td= message.to.nombre_completo
                 td Hace #{distance_of_time_in_words_to_now message.created_at}
+                td= link_to "Borrar", message_path(message), method: :delete
     .cleared

@@ -62,6 +62,14 @@ class MessagesController < ApplicationController
     @reply = @reply.decorate
   end
 
+  def destroy
+    if @message.draft?
+      @message.destroy
+    end
+
+    respond_with @message, location: -> { messages_path }
+  end
+
   private
 
   def message_params
