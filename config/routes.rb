@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     get '/cuenta' => 'registrations#edit', as: :account
+    get '/logout' => 'devise/sessions#destroy', as: :logout
   end
 
   match '/consentimiento' => 'visitors#consentimiento', as: 'consentimiento_informado', via: [:get, :post]
