@@ -1,5 +1,6 @@
 class MessagesController < ApplicationController
   before_filter :load_resources
+  before_action :authenticate_user!
   respond_to :html
 
   def index
