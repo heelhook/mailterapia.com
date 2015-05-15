@@ -15,7 +15,7 @@
               .contact-name-field
                 div Asunto
                 = @message.subject
-              .message-display
+              .message-body-display
                 = simple_format @message.body
               / # = f.submit 'Responder', :class => 'normal-button'
               = form_for @reply do |f|
@@ -25,7 +25,7 @@
                 = f.hidden_field :in_reply_to_id
                 = f.hidden_field :status
                 = f.text_area :body, id: 'message_body_real'
-                .message-container
+                .message-body-editor
                   #message_body
                     br
                     br

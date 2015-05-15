@@ -32,12 +32,11 @@ table.table {
   }
 }
 
-.message-container, .message-display {
-  border: solid #cccccc 1px;
-  padding: 1em;
-  min-height: 500px;
-
+.message-body-editor {
   #message_body {
+    border: solid #cccccc 1px;
+    padding: 1em;
+    min-height: 500px;
     min-height: 500px;
 
     text-transform: none;
@@ -49,12 +48,12 @@ table.table {
 }
 
 body.messages.show {
-  .message-container {
+  .message-body-editor {
     display: none;
   }
 }
 
-#message, #message_body, .message-display {
+#message, #message_body, .message-body-editor, .message-body-display {
   font-size: 18px;
   font-weight: normal;
   line-height: 1.5em;

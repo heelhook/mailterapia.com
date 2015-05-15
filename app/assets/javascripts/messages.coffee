@@ -13,7 +13,7 @@ $ ->
 
   $('input#reply').on 'click', (e) ->
     $(@).slideUp =>
-      $('.message-container').slideDown()
+      $('.message-body-editor').slideDown()
     false
 
   $('input#send').on 'click', (e) ->
