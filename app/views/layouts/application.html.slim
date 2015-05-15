@@ -82,5 +82,7 @@ html
       var wpc_password_protect = {"blackList":["password","qwerty","123456789"],"min_length":"1","strength":"5","mixed_case":"0","numeric_digits":"0","special_chars":"0","hint_message":"Hint - The password:<br \/><span class=\"wpc_requirement_level\">- Must trigger the Very weak level on the Strength indicator.<\/span><br \/>"};
       /!*  */
     script src="https://www.mailterapia.com/wp-content/plugins/wp-client/js/password_protect.js?ver=4.1.1" type="text/javascript"
-    == stylesheet_link_tag controller_name, :media => 'all', 'data-turbolinks-track' => true
-    == javascript_include_tag controller_name, 'data-turbolinks-track' => true
+    - if Rails.application.config.assets.precompile.include? "#{controller_name}.css"
+      == stylesheet_link_tag controller_name, :media => 'all', 'data-turbolinks-track' => true
+    - if Rails.application.config.assets.precompile.include? "#{controller_name}.js"
+      == javascript_include_tag controller_name, 'data-turbolinks-track' => true
