@@ -29,8 +29,8 @@ class TransactionMailer < MandrillMailer::TemplateMailer
     @subject = "Nuevo registro en Mailterapia"
     mandrill_mail(
       template: 'notification-registration',
-      from: user.service_email,
-      reply_to: user.email,
+      from: user.email,
+      from_name: user.nombre_completo,
       subject: @subject,
       to: {
         email: "marinadiazc@gmail.com",
@@ -81,11 +81,13 @@ class TransactionMailer < MandrillMailer::TemplateMailer
     mandrill_mail(
       template: "notification-message",
       from: message.from.email,
+      from_name: message.from.nombre_completo,
       to: {
         email: message.to.email,
         name: message.to.nombre_completo,
       },
       vars: {
+        'SENDER_NAME' => message.from.nombre_completo,
         'NAME' => message.to.nombre,
         'SUBJECT' => message.subject,
         'LINK_MESSAGE' => "https://www.mailterapia.com/clientes/mensajes/#{message.id}",
@@ -100,6 +102,7 @@ class TransactionMailer < MandrillMailer::TemplateMailer
     mandrill_mail(
       template: "consentimiento-informado",
       from: user.email,
+      from_name: user.nombre_completo,
       to: {
         email: "marinadiazc@gmail.com",
         name: "Marina Diaz",
