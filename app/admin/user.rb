@@ -30,6 +30,7 @@ ActiveAdmin.register User do
       f.input :dropbox_link
       f.input :password
       f.input :password_confirmation
+      f.input :stripe_token
       f.input :slug
     end
     f.actions
