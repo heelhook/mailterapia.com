@@ -25,26 +25,33 @@ $ ->
 
   $('#save-draft').on 'click', (e) ->
     $('input#message_status').val('draft')
-    # message = message:
-    #   subject: $('input#message_subject').val()
-    #   to_id: $('input#message_to_id').val()
-    #   body: $('#message_body').html()
-    #   in_reply_to_id: $('input#message_in_reply_to_id').val()
-    #   status: 'draft'
 
-    # id = $('input#message_draft_id').val()
-    # if id?
-    #   url = "/mensajes/#{id}"
-    #   method = 'put'
-    # else
-    #   url = "/mensajes"
-    #   method = 'post'
+  $('[data-role="new-folder"]').on 'click', (e) ->
+    name = prompt "Nombre de la nueva carpeta:"
+    if name?
+      $.ajax
+        url: $(@).attr('href')
+        method: 'post'
+        data:
+          folder:
+            name: name
+        complete: ->
+          location.reload()
+    false
 
-    # $.ajax
-    #   url: url
-    #   method: method
-    #   data: message
-    #   success: (e) ->
-    #     alert 'Tu mensaje fue guardado!'
+  $('select[name="move_to_folder"]').on 'change', (e) ->
+    id = $(@).parents('.message[data-id]').data().id
+    folder = $(@).val()
 
-    # false
+    $.ajax
+      url: "/clientes/mensajes/#{id}"
+      method: 'put'
+      data:
+        message:
+          folder_id: folder
+      beforeSend: =>
+        $(".message[data-id='#{id}'] .spinner").show()
+        $(".message[data-id='#{id}'] #move_to_folder").hide()
+      success: ->
+        $(".message[data-id='#{id}'] .spinner").hide()
+        $(".message[data-id='#{id}'] #move_to_folder").show()

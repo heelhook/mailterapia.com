@@ -2,6 +2,7 @@ class Message < ActiveRecord::Base
   belongs_to :from, class_name: 'User'
   belongs_to :to, class_name: 'User'
   belongs_to :in_reply_to, class_name: 'Message'
+  belongs_to :folder
 
   has_many :replies, class_name: 'Message', foreign_key: :in_reply_to_id
 

@@ -2,10 +2,19 @@
   .column1
     .content-section-heading
       h2.content-section-title
-        span Bandeja de Entrada
+        span= @folder.try(:name) || 'Bandeja de Entrada'
       h3.content-section-subtitle
         a.normal-button[href=new_message_path] Enviar Nuevo Mensaje
     .cleared
+    - if current_user.admin?
+      - if current_user.folders.any?
+        h3 Carpetas
+        ul.folders
+          li= link_to "Bandeja de Entrada", messages_path
+          - current_user.folders.each do |folder|
+            li= link_to folder.name, folder_messages_path(folder)
+      p
+        a.normal-button[href=folders_path data-role="new-folder"] Nueva Carpeta
     .content-column1.column-last
       table.table
         thead
@@ -17,7 +26,7 @@
             th
         tbody
           - @inbox.each do |message|
-            tr[class="#{message.status}"]
+            tr.message[class="#{message.status}" data-id=message.id]
               td= link_to message.subject, message
               td= message.from.nombre_completo
               td= message.to.nombre_completo
@@ -25,6 +34,9 @@
               td
                 - if ! current_user.admin?
                   = link_to "Borrar", message_path(message), method: :delete, class: 'delete-mail'
+                - else
+                  = select_tag 'move_to_folder', options_from_collection_for_select(current_user.folders, :id, :name, message.folder_id), include_blank: true
+                  i.fa.fa-spinner.fa-spin.hidden.spinner
   .cleared
 
   - if @sent.any?

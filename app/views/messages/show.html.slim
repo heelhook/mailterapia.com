@@ -2,7 +2,7 @@
   .column1
     .content-section-heading
       h2.content-section-title
-        span Mensaje
+        span= @message.subject
   .cleared
     .content-column1.column-last
       .widget-entry
@@ -13,8 +13,8 @@
                 div Para
                 span= @message.to.nombre_completo
               .contact-name-field
-                div Asunto
-                = @message.subject
+                div Fecha
+                = l @message.created_at, format: :short
               .message-body-display
                 = simple_format @message.body
               / # = f.submit 'Responder', :class => 'normal-button'

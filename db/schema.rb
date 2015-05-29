@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150515100903) do
+ActiveRecord::Schema.define(version: 20150529113215) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -53,6 +53,17 @@ ActiveRecord::Schema.define(version: 20150515100903) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "folders", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.string   "slug"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "folders", ["slug"], name: "index_folders_on_slug"
+  add_index "folders", ["user_id"], name: "index_folders_on_user_id"
+
   create_table "messages", force: :cascade do |t|
     t.integer  "from_id"
     t.integer  "to_id"
@@ -63,6 +74,7 @@ ActiveRecord::Schema.define(version: 20150515100903) do
     t.datetime "updated_at",                     null: false
     t.integer  "in_reply_to_id"
     t.boolean  "visible_to_user", default: true
+    t.integer  "folder_id"
   end
 
   add_index "messages", ["from_id"], name: "index_messages_on_from_id"

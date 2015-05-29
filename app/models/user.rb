@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_many :unread_messages, -> { unread }, class_name: 'Message', foreign_key: :to_id
   has_many :read_messages, -> { read }, class_name: 'Message', foreign_key: :to_id
   has_many :draft_messages, -> { draft }, class_name: 'Message', foreign_key: :from_id
+  has_many :folders
 
   validates :nombre, :apellido, :email, presence: true
   validates :email, uniqueness: true

@@ -13,5 +13,10 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   root to: 'visitors#index'
   resources :users, :payments
-  resources :messages, path: 'mensajes'
+  resources :messages, path: 'mensajes' do
+    put :move
+  end
+  resources :folders, only: [:create] do
+    resources :messages, only: [:index]
+  end
 end

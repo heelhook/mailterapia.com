@@ -77,3 +77,19 @@ body.messages.show {
     margin: 0;
   }
 }
+
+.hidden {
+  display: none;
+}
+
+ul.folders {
+  &:after {
+    clear: both;
+  }
+
+  li {
+    display: inline-block;
+    float: left;
+    padding: 1em;
+  }
+}
