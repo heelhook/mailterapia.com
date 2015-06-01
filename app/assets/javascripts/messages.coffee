@@ -1,7 +1,7 @@
 #= require 'pen'
 #= require markdown
 
-$ ->
+setup_message = ->
   setTimeout ->
     window.editor = new Pen('#message_body')
   , 250
@@ -55,3 +55,5 @@ $ ->
       success: ->
         $(".message[data-id='#{id}'] .spinner").hide()
         $(".message[data-id='#{id}'] #move_to_folder").show()
+
+$(document).on 'page:load ready', -> setup_message()
