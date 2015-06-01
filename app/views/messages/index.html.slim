@@ -30,7 +30,7 @@
               td= link_to message.subject, message
               td= message.from.nombre_completo
               td= message.to.nombre_completo
-              td Hace #{distance_of_time_in_words_to_now message.created_at}
+              td= l message.created_at, format: :long
               td
                 - if ! current_user.admin?
                   = link_to "Borrar", message_path(message), method: :delete, class: 'delete-mail'
@@ -60,7 +60,7 @@
                 td= link_to message.subject, message
                 td= message.from.nombre_completo
                 td= message.to.nombre_completo
-                td Hace #{distance_of_time_in_words_to_now message.created_at}
+                td= l message.created_at, format: :long
                 td
                   - if ! current_user.admin?
                     = link_to "Borrar", message_path(message), method: :delete, class: 'delete-mail'
@@ -87,6 +87,6 @@
                 td= link_to message.subject, edit_message_path(message)
                 td= message.from.nombre_completo
                 td= message.to.nombre_completo
-                td Hace #{distance_of_time_in_words_to_now message.created_at}
+                td= l message.created_at, format: :long
                 td= link_to "Borrar", message_path(message), method: :delete, class: 'delete-mail'
     .cleared
