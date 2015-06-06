@@ -97,7 +97,11 @@ class MessagesController < ApplicationController
   end
 
   def load_resources
-    @message = current_user.messages.find(params[:id]) if params[:id]
+    if params[:id]
+      @message = current_user.messages.find(params[:id]) rescue nil
+      @message ||= current_user.my_messages.find(params[:id]) rescue nil
+    end
+
     @folder = current_user.folders.find(params[:folder_id]) if params[:folder_id]
   end
 end
