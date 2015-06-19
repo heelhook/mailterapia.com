@@ -10,10 +10,11 @@ setup_message = ->
     if ! confirm("¿Seguro que deseas borrar este mensaje? No podrás recuperarlo luego.")
       return false
 
-  $('form#new_message,form.edit_message').on 'submit', (e) ->
-    html = $('#message_body').html()
-    window.editor.destroy()
-    $('#message_body_real').val(html)
+  $('form#new_message,form.edit_message').on 'ajax:success', (e) ->
+    $(location).attr('href', '/clientes/mensajes')
+
+  $('form#new_message,form.edit_message').on 'ajax:error', (e, data, status, xhr) ->
+    alert "El mensaje no fue enviado correctamente. Asegurate de que tu conexión funciona correctamente y vuelve a intentarlo. Si el problema continua escribenos a soporte@mailterapia.com. #{data.statusText}."
 
   $('input#reply').on 'click', (e) ->
     $(@).slideUp =>
@@ -22,6 +23,9 @@ setup_message = ->
 
   $('input#send').on 'click', (e) ->
     $('input#message_status').val('unread')
+    html = $('#message_body').html()
+    window.editor.destroy()
+    $('#message_body_real').val(html)
 
   $('#save-draft').on 'click', (e) ->
     $('input#message_status').val('draft')
