@@ -1,6 +1,15 @@
 class PaymentsController < ApplicationController
+  before_filter :load_stripe_customer_exists, only: [:new, :veranosinproblemas, :resuelveunproblema]
+
   def new
-    @stripe_customer = current_user.chargable_stripe_customer?
+  end
+
+  def veranosinproblemas
+    redirect_to action: :new unless @coupon.try(:id) == 'veranosinproblemas'
+  end
+
+  def resuelveunproblema
+    redirect_to action: :new unless @coupon.try(:id) == 'resuelveunproblema'
   end
 
   def create
@@ -49,6 +58,19 @@ class PaymentsController < ApplicationController
       plan = 'suscripcion-ilimitada'
       service_name = 'Suscripción Ilimitada'
       comienzo_terapia_template_name = 'ilimitada'
+    end
+
+    case session[:coupon]
+    when 'veranosinproblemas'
+      if service == 'consulta-expres'
+        amount = 3600
+        session[:coupon] = nil
+      end
+    when 'resuelveunproblema'
+      if service == 'consulta-expres'
+        amount = 3375
+        session[:coupon] = nil
+      end
     end
 
     case type
@@ -101,5 +123,11 @@ class PaymentsController < ApplicationController
     flash[:notice] = 'Tu suscripción ha sido cancelada.'
 
     head :ok
+  end
+
+  private
+
+  def load_stripe_customer_exists
+    @stripe_customer = current_user.chargable_stripe_customer?
   end
 end

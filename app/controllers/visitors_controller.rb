@@ -1,13 +1,26 @@
 class VisitorsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:coupon]
 
   def index
-    redirect_to new_payment_path unless current_user.access_to_communication?
+    unless current_user.access_to_communication?
+      if session[:coupon]
+        redirect_to "/clientes/#{session[:coupon]}"
+      else
+        redirect_to new_payment_path
+      end
+    end
 
     if session[:first_payment]
       @first_payment_alert = true
       session[:first_payment] = nil
     end
+  end
+
+  def coupon
+    coupon = Stripe::Coupon.retrieve(params[:code])
+    session[:coupon] = params[:code]
+    redirect_to "https://www.mailterapia.com/#{session[:coupon]}"
+  rescue Stripe::InvalidRequestError => e
   end
 
   def consentimiento

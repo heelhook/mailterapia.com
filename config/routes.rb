@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: {registrations: 'registrations'}
 
+  get '/c/:code' => 'visitors#coupon'
+  get '/veranosinproblemas' => 'payments#veranosinproblemas'
+  get '/resuelveunproblema' => 'payments#resuelveunproblema'
+
   devise_scope :user do
     get '/cuenta' => 'registrations#edit', as: :account
     get '/logout' => 'devise/sessions#destroy', as: :logout
