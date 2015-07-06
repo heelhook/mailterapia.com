@@ -15,4 +15,5 @@ Rails.application.config.assets.precompile += %w(
   payments.js
   visitors.js
   messages.css messages.js
+  es.js
 )

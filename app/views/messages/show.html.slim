@@ -24,18 +24,10 @@
                 = f.hidden_field :subject
                 = f.hidden_field :in_reply_to_id
                 = f.hidden_field :status
-                = f.text_area :body, id: 'message_body_real'
                 .message-body-editor
                   h3 Tu respuesta
-                  .info-box.note-box
-                    .info-box-remove
-                      i.fa.fa-times
-                    p[style='font-size: 0.9em; margin: 0;']
-                      = "Si quieres citar parte del mensaje anterior puedes copiar y pegar el párrafo que te interese y precederlo de "
-                      span[style='font-family: Courier; background-color: #eeeeee; color: black; border: solid #888888 1px; padding: 0.25em; padding-right: 1em; margin-right: 1em;']= "> "
-                      = " (incluyendo un espacio a la derecha)."
+                  = f.text_area :body, id: 'message_body', class: 'tinymce', rows: 20
 
-                  #message_body
                   = f.submit 'Enviar', :class => 'normal-button', id: 'send'
                   = f.submit 'Guardar Borrador', class: 'normal-button', id: 'save-draft'
 

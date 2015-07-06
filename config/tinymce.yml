@@ -1,0 +1,8 @@
+menubar: false
+toolbar:
+  - blockquote | bold italic | undo redo | image | link
+plugins:
+  - image
+  - link
+skin: pepper-grinder
+language_url: /assets/es.js

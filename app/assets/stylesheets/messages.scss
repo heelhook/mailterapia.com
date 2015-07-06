@@ -1,5 +1,3 @@
-//= require 'pen'
-
 table.table {
   width: 100%;
   margin-bottom: 5em;
@@ -42,10 +40,6 @@ table.table {
 
     text-transform: none;
   }
-}
-
-#message_body_real {
-  display: none;
 }
 
 body.messages.show {

@@ -1,10 +1,16 @@
-#= require 'pen'
-#= require markdown
+#= require tinymce-jquery
 
 setup_message = ->
   setTimeout ->
-    window.editor = new Pen('#message_body')
-  , 250
+    tinyMCE.init
+      selector: "textarea.tinymce"
+      menubar: false
+      toolbar: ["blockquote | bold italic | undo redo | image | link"]
+      plugins: "image,link"
+      skin: "pepper-grinder"
+      language_url: "/assets/es.js"
+      height: 500
+  , 500
 
   $('body').on 'click', '.delete-mail', (e) ->
     if ! confirm("¿Seguro que deseas borrar este mensaje? No podrás recuperarlo luego.")
@@ -32,9 +38,6 @@ setup_message = ->
 
   $('input#send').on 'click', (e) ->
     $('input#message_status').val('unread')
-    html = $('#message_body').html()
-    window.editor.destroy()
-    $('#message_body_real').val(html)
 
   $('#save-draft').on 'click', (e) ->
     $('input#message_status').val('draft')
