@@ -48,7 +48,8 @@
                   - else
                     = f.text_field :subject, :autofocus => true, class: 'contact-name'
                 p[style='font-size: 0.7em; color: #aaaaaa; margin: 0; padding: 0;'] (Selecciona el texto para dar formato)
-                = f.text_area :body, id: 'message_body_real', class: 'tinymce'
+                = f.hidden_field :body
+                = text_area_tag :body, @message.body, id: 'message_body_editor', class: 'tinymce'
                 = f.submit 'Enviar', :class => 'normal-button', id: 'send'
                 = f.submit 'Guardar Borrador', class: 'normal-button', id: 'save-draft'
     .cleared

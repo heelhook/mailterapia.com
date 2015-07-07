@@ -10,7 +10,7 @@ setup_message = ->
       skin: "pepper-grinder"
       language_url: "/assets/es.js"
       height: 500
-  , 500
+  , 1000
 
   $('body').on 'click', '.delete-mail', (e) ->
     if ! confirm("¿Seguro que deseas borrar este mensaje? No podrás recuperarlo luego.")
@@ -19,8 +19,6 @@ setup_message = ->
   $('form#new_message,form.edit_message').on 'ajax:beforeSend', (e) ->
     $('input#send').val('Enviando...')
     $('input#send').prop('disabled', true)
-
-  $('form#new_message,form.edit_message').on 'ajax:complete', (e) ->
 
   $('form#new_message,form.edit_message').on 'ajax:success', (e) ->
     $(location).attr('href', '/clientes/mensajes')
@@ -41,6 +39,9 @@ setup_message = ->
 
   $('#save-draft').on 'click', (e) ->
     $('input#message_status').val('draft')
+
+  $('input#send,input#save-draft').on 'click', ->
+    $('input#message_body').val(tinyMCE.activeEditor.getContent())
 
   $('[data-role="new-folder"]').on 'click', (e) ->
     name = prompt "Nombre de la nueva carpeta:"

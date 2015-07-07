@@ -68,7 +68,7 @@ class MessagesController < ApplicationController
       in_reply_to: @message,
       to: @message.from,
       subject: @message.subject,
-      body: "<p></p><p></p><hr /><p>#{@message.from.nombre} escribió el #{l @message.created_at, format: :short}:</p><blockquote>#{@message.body}</blockquote>",
+      body: "<p></p><hr /><p>#{@message.from.nombre} escribió el #{l @message.created_at, format: :short}:</p><blockquote>#{@message.body}</blockquote>",
     )
     @reply = @reply.decorate
   end

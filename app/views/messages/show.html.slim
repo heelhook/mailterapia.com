@@ -24,9 +24,10 @@
                 = f.hidden_field :subject
                 = f.hidden_field :in_reply_to_id
                 = f.hidden_field :status
+                = f.hidden_field :body
                 .message-body-editor
                   h3 Tu respuesta
-                  = f.text_area :body, id: 'message_body', class: 'tinymce', rows: 20
+                  = text_area_tag :body, @reply.body, id: 'message_body_editor', class: 'tinymce', rows: 20
 
                   = f.submit 'Enviar', :class => 'normal-button', id: 'send'
                   = f.submit 'Guardar Borrador', class: 'normal-button', id: 'save-draft'
