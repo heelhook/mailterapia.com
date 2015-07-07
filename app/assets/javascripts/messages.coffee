@@ -5,8 +5,8 @@ setup_message = ->
     tinyMCE.init
       selector: "textarea.tinymce"
       menubar: false
-      toolbar: ["blockquote | bold italic | undo redo | image | link"]
-      plugins: "image,link"
+      toolbar: ["blockquote | bold italic underline strikethrough | undo redo | fontsizeselect | bullist numlist outdent indent  | cut copy paste | image | link | emoticons"]
+      plugins: "image,link,emoticons"
       skin: "pepper-grinder"
       language_url: "/assets/es.js"
       height: 500

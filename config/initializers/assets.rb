@@ -16,4 +16,5 @@ Rails.application.config.assets.precompile += %w(
   visitors.js
   messages.css messages.js
   es.js
+  tinymce/themes/modern/theme.js
 )
