@@ -16,7 +16,7 @@
                 div Fecha
                 = l @message.created_at, format: :short
               .message-body-display
-                = simple_format @message.body
+                = sanitize @message.body, tags: %w(blockquote p strong em span ul li ol img a), attributes: %w(style src alt width height title target)
               / # = f.submit 'Responder', :class => 'normal-button'
               = form_for @reply, remote: true do |f|
                 = f.submit 'Responder', class: 'normal-button', id: 'reply'
