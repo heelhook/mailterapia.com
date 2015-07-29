@@ -35,6 +35,7 @@ class MessagesController < ApplicationController
     @message = Message.new(message_params)
     @message.from = current_user
     @message.to = Message.default_recipient unless current_user.admin?
+    @message.status ||= 'unread'
     @message.save
     @message = MessageDecorator.new(@message)
 
