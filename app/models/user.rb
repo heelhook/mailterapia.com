@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
   enum role: [:user, :admin]
   after_initialize :set_default_role, :if => :new_record?
 
-  # after_create :send_email, :subscribe_to_newsletter
+  after_create :send_email, :subscribe_to_newsletter
 
   attr_accessor :condiciones_de_servicio, :newsletter
 
