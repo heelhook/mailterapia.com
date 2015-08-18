@@ -2,8 +2,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {registrations: 'registrations'}
 
   get '/c/:code' => 'visitors#coupon'
-  get '/veranosinproblemas' => 'payments#veranosinproblemas'
-  get '/resuelveunproblema' => 'payments#resuelveunproblema'
+  get '/descuentosorteo' => 'payments#descuentosorteo'
 
   devise_scope :user do
     get '/cuenta' => 'registrations#edit', as: :account

@@ -1,15 +1,11 @@
 class PaymentsController < ApplicationController
-  before_filter :load_stripe_customer_exists, only: [:new, :veranosinproblemas, :resuelveunproblema]
+  before_filter :load_stripe_customer_exists, only: [:new, :descuentosorteo]
 
   def new
   end
 
-  def veranosinproblemas
-    redirect_to action: :new unless @coupon.try(:id) == 'veranosinproblemas'
-  end
-
-  def resuelveunproblema
-    redirect_to action: :new unless @coupon.try(:id) == 'resuelveunproblema'
+  def descuentosorteo
+    redirect_to action: :new unless @coupon.try(:id) == 'descuentosorteo'
   end
 
   def create
@@ -61,12 +57,7 @@ class PaymentsController < ApplicationController
     end
 
     case session[:coupon]
-    when 'veranosinproblemas'
-      if service == 'consulta-expres'
-        amount = 3600
-        session[:coupon] = nil
-      end
-    when 'resuelveunproblema'
+    when 'descuentosorteo'
       if service == 'consulta-expres'
         amount = 3375
         session[:coupon] = nil
