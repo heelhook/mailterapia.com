@@ -118,7 +118,7 @@ class User < ActiveRecord::Base
   end
 
   def access_to_communication?
-    stripe_token || admin?
+    access_to_service? || stripe_token || admin?
   end
 
   def service_email
