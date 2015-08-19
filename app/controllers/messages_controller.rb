@@ -15,6 +15,12 @@ class MessagesController < ApplicationController
     @sent =  current_user.my_messages - current_user.draft_messages
     @sent = @sent.reject { |message| ! message.visible_to_user } if ! current_user.admin?
     @drafts = current_user.draft_messages
+
+    if params[:tagged]
+      @inbox = @inbox.select {|message| message.all_tags_list.include? params[:tagged] }
+      @sent = @sent.select {|message| message.all_tags_list.include? params[:tagged] }
+      @drafts = @drafts.select {|message| message.all_tags_list.include? params[:tagged] }
+    end
   end
 
   def new
@@ -71,6 +77,7 @@ class MessagesController < ApplicationController
       to: @message.from,
       subject: @message.subject,
       body: "<p></p><hr /><p>#{@message.from.nombre} escribió el #{l @message.created_at, format: :short}:</p><blockquote>#{@message.body}</blockquote>",
+      tag_list: @message.tag_list,
     )
     @reply = @reply.decorate
   end
@@ -95,6 +102,7 @@ class MessagesController < ApplicationController
       :in_reply_to,
       :status,
       :folder_id,
+      :tag_list,
     )
   end
 

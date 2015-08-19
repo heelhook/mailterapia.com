@@ -13,20 +13,31 @@
                 div Para
                 span= @message.to.nombre_completo
               .contact-name-field
-                div Fecha
                 = l @message.created_at, format: :short
+              .contact-name-field
+                div Etiquetas
+                .tags
+                  = form_for @message, remote: true, html: { class: 'tag' } do |f|
+                    i.fa.fa-tag
+                    = f.text_field :tag_list, class: 'contact-name', placeholder: 'Etiquetas (e.j. #autoestima, #ansiedad)'
+                    = f.submit 'Actualizar etiquetas'
               .message-body-display
                 = sanitize @message.body, tags: %w(blockquote p strong em span ul li ol img a), attributes: %w(style src alt width height title href target)
               / # = f.submit 'Responder', :class => 'normal-button'
-              = form_for @reply, remote: true do |f|
-                = f.submit 'Responder', class: 'normal-button', id: 'reply'
+              = submit_tag 'Responder', class: 'normal-button', id: 'reply'
+              = form_for @reply, remote: true, html: { class: 'replyform' } do |f|
                 = f.hidden_field :to_id
                 = f.hidden_field :subject
                 = f.hidden_field :in_reply_to_id
                 = f.hidden_field :status
                 = f.hidden_field :body
+                h3 Tu respuesta
+                .tags
+                  .contact-name-field
+                    div Etiquetas
+                    i.fa.fa-tag
+                    = f.text_field :tag_list
                 .message-body-editor
-                  h3 Tu respuesta
                   = text_area_tag :body, @reply.body, id: 'message_body_editor', class: 'tinymce', rows: 20
 
                   = f.submit 'Enviar', :class => 'normal-button', id: 'send'

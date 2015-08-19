@@ -26,8 +26,14 @@ class User < ActiveRecord::Base
 
   after_initialize :initialize_with_defaults, if: :new_record?
 
+  acts_as_tagger
+
   def initialize_with_defaults
     @newsletter ||= true
+  end
+
+  def all_messages
+    messages | my_messages
   end
 
   def send_email

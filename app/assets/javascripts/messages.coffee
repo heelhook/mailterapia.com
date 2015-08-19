@@ -31,7 +31,7 @@ setup_message = ->
 
   $('input#reply').on 'click', (e) ->
     $(@).slideUp =>
-      $('.message-body-editor').slideDown()
+      $('.replyform').slideDown()
     false
 
   $('input#send').on 'click', (e) ->
@@ -39,6 +39,13 @@ setup_message = ->
 
   $('#save-draft').on 'click', (e) ->
     $('input#message_status').val('draft')
+
+  $('input#message_tag_list').on 'keydown', (e) ->
+    $('.tags input[type="submit"]').fadeIn()
+
+  $('.tags form').on 'ajax:success', ->
+    $('.tags input[type="submit"]').fadeOut()
+    $('.replyform input#message_tag_list').val($('input#message_tag_list[type="text"]:first').val())
 
   $('input#send,input#save-draft').on 'click', ->
     $('input#message_body').val(tinyMCE.activeEditor.getContent())

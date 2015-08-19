@@ -17,6 +17,8 @@ class Message < ActiveRecord::Base
 
   after_create :send_notification
 
+  acts_as_taggable
+
   def self.default_recipient
     User.where(role: User.roles['admin']).first
   end

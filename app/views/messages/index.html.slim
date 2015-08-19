@@ -2,7 +2,12 @@
   .column1
     .content-section-heading
       h2.content-section-title
-        span= @folder.try(:name) || 'Bandeja de Entrada'
+        span
+          = @folder.try(:name) || "Bandeja de Entrada"
+          - if params[:tagged]
+            = ", #{params[:tagged]}"
+      - if params[:tagged]
+        = link_to "Ver todos los mensajes", back_path
       h3.content-section-subtitle
         a.normal-button[href=new_message_path] Enviar Nuevo Mensaje
     .cleared
@@ -23,6 +28,7 @@
             th De
             th Para
             th Fecha
+            th Etiquetas
             th
         tbody
           - @inbox.each do |message|
@@ -31,6 +37,10 @@
               td= message.from.nombre_completo
               td= message.to.nombre_completo
               td= l message.created_at, format: :long
+              td
+                ul
+                  - message.tags.each do |tag|
+                    li= link_to tag.name, back_path(tagged: tag.name)
               td
                 - if ! current_user.admin?
                   = link_to "Borrar", message_path(message), method: :delete, class: 'delete-mail'
@@ -53,6 +63,7 @@
               th De
               th Para
               th Fecha
+              th Etiquetas
               th
           tbody
             - @sent.each do |message|
@@ -61,6 +72,10 @@
                 td= message.from.nombre_completo
                 td= message.to.nombre_completo
                 td= l message.created_at, format: :long
+                td
+                  ul
+                    - message.tags.each do |tag|
+                      li= link_to tag.name, back_path(tagged: tag.name)
                 td
                   - if ! current_user.admin?
                     = link_to "Borrar", message_path(message), method: :delete, class: 'delete-mail'
@@ -80,6 +95,7 @@
               th De
               th Para
               th Fecha
+              th Etiquetas
               th
           tbody
             - @drafts.each do |message|
@@ -88,5 +104,9 @@
                 td= message.from.nombre_completo
                 td= message.to.nombre_completo
                 td= l message.created_at, format: :long
+                td
+                  ul
+                    - message.tags.each do |tag|
+                      li= link_to tag.name, back_path(tagged: tag.name)
                 td= link_to "Borrar", message_path(message), method: :delete, class: 'delete-mail'
     .cleared
