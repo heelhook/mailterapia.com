@@ -51,7 +51,7 @@
                   div Etiquetas
                   = f.text_field :tag_list, class: 'contact-name'
                   .note
-                    | Texto explicando que se pueden usar etiquetas!
+                    | Utiliza una etiqueta para cada tema importante que trates en este mensaje (por ejemplo: #ansiedad #trabajo).
                 p[style='font-size: 0.7em; color: #aaaaaa; margin: 0; padding: 0;'] (Selecciona el texto para dar formato)
                 = f.hidden_field :body
                 = text_area_tag :body, @message.body, id: 'message_body_editor', class: 'tinymce'
