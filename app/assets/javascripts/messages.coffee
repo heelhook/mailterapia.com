@@ -2,8 +2,7 @@
 
 setup_message = ->
   setTimeout ->
-    tinyMCE.init
-      selector: "textarea.tinymce"
+    $('textarea.tinymce').tinymce
       menubar: false
       toolbar: ["blockquote | bold italic underline strikethrough | undo redo | fontsizeselect | bullist numlist outdent indent  | cut copy paste | image | link | emoticons"]
       plugins: "image,link,emoticons"
