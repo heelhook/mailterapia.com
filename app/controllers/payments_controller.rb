@@ -13,10 +13,11 @@ class PaymentsController < ApplicationController
     session[:first_payment] = true unless customer
 
     customer ||= Stripe::Customer.create(
-      source: params[:stripe_token][:id],
       description: current_user.nombre_completo,
       email: params[:stripe_token][:email],
     )
+
+    customer.sources.create(source: params[:stripe_token][:id])
 
     current_user.update_attributes!(stripe_token: customer.id)
 
