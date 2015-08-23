@@ -76,7 +76,7 @@ setup_message = ->
     $('.replyform input#message_tag_list').val($('input#message_tag_list[type="text"]:first').val())
 
   $('input#send,input#save-draft').on 'click', ->
-    if tinyMce.activeEditor?
+    if tinyMCE.activeEditor?
       draft_pause()
       $('input#message_body').val(tinyMCE.activeEditor.getContent())
 
