@@ -110,9 +110,12 @@ setup_message = ->
         $(".message[data-id='#{id}'] .spinner").hide()
         $(".message[data-id='#{id}'] #move_to_folder").show()
 
-  setInterval ->
+  autosave_interval = setInterval ->
     $('#save-draft').click() unless draft_paused()
   , 30000
+
+  $(document).on 'page:before-change', ->
+    clearInterval(autosave_interval)
 
   if $('.replyform[id^="edit_message_"]').length == 1
     $('input#reply').slideUp ->
