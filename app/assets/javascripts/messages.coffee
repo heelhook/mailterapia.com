@@ -1,6 +1,15 @@
 #= require tinymce-jquery
 
 setup_message = ->
+  draft_paused = ->
+    $('body').attr('data-draft-paused') == 'true'
+
+  draft_pause = ->
+    $('body').attr('data-draft-paused', 'true')
+
+  draft_continue = ->
+    $('body').attr('data-draft-paused', '')
+
   setTimeout ->
     $('textarea.tinymce').tinymce
       menubar: false
@@ -16,17 +25,17 @@ setup_message = ->
       return false
 
   $('body').on 'ajax:beforeSend', 'form#new_message,form.edit_message', (e) ->
-    $draft_interval = true
+    draft_pause()
     if $('input#message_status').val() is 'draft'
       $('input#save-draft').val('Guardando...')
-      $('input#save-draft').prop('disabled', true)
+      $('input[type="submit"]').prop('disabled', true)
     else
       $('input#send').val('Enviando...')
-      $('input#send').prop('disabled', true)
+      $('input[type="submit"]').prop('disabled', true)
 
   $('body').on 'ajax:success', 'form#new_message,form.edit_message,form.replyform', (e, data) ->
-    $draft_paused = false
     if $('input#message_status').val() is 'draft'
+      draft_continue()
       $('form#new_message input#message_id,form#edit_message input#message_id').val(data.id)
       $('form#new_message,form#edit_message').attr('action', data.action)
       $('form#new_message,form#edit_message').attr('id', 'edit_message')
@@ -35,17 +44,17 @@ setup_message = ->
       $('input#save-draft').val('Guardado!')
       setTimeout ->
         $('input#save-draft').val('Guardar Borrador')
-        $('input#save-draft').prop('disabled', false)
+        $('input[type="submit"]').prop('disabled', false)
       , 1000
     else
-      $(location).attr('href', '/clientes/mensajes')
+      # $(location).attr('href', '/clientes/mensajes')
       $('input#send').val('Enviado!')
 
   $('body').on 'ajax:error', 'form#new_message,form.edit_message', (e, data, status, xhr) ->
     alert "El mensaje no fue enviado correctamente. Asegurate de que tu conexión funciona correctamente y vuelve a intentarlo. Si el problema continua escribenos a soporte@mailterapia.com. #{data.statusText}."
     $('input#send').val('Enviar')
-    $('input#send').prop('disabled', false)
-    $draft_paused = false
+    $('input[type="submit"]').prop('disabled', false)
+    draft_continue()
 
   $('input#reply').on 'click', (e) ->
     $(@).slideUp =>
@@ -53,7 +62,7 @@ setup_message = ->
     false
 
   $('input#send').on 'click', (e) ->
-    $draft_paused = true
+    draft_pause()
     $('input#message_status').val('unread')
 
   $('#save-draft').on 'click', (e) ->
@@ -67,7 +76,7 @@ setup_message = ->
     $('.replyform input#message_tag_list').val($('input#message_tag_list[type="text"]:first').val())
 
   $('input#send,input#save-draft').on 'click', ->
-    $draft_paused = true
+    draft_pause()
     $('input#message_body').val(tinyMCE.activeEditor.getContent())
 
   $('[data-role="new-folder"]').on 'click', (e) ->
@@ -101,7 +110,7 @@ setup_message = ->
         $(".message[data-id='#{id}'] #move_to_folder").show()
 
   setInterval ->
-    $('#save-draft').click() unless $draft_paused? && $draft_paused
+    $('#save-draft').click() unless draft_paused()
   , 30000
 
   if $('.replyform[id^="edit_message_"]').length == 1
