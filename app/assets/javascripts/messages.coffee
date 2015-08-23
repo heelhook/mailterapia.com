@@ -76,8 +76,9 @@ setup_message = ->
     $('.replyform input#message_tag_list').val($('input#message_tag_list[type="text"]:first').val())
 
   $('input#send,input#save-draft').on 'click', ->
-    draft_pause()
-    $('input#message_body').val(tinyMCE.activeEditor.getContent())
+    if tinyMce.activeEditor?
+      draft_pause()
+      $('input#message_body').val(tinyMCE.activeEditor.getContent())
 
   $('[data-role="new-folder"]').on 'click', (e) ->
     name = prompt "Nombre de la nueva carpeta:"
