@@ -47,7 +47,7 @@ setup_message = ->
         $('input[type="submit"]').prop('disabled', false)
       , 1000
     else
-      # $(location).attr('href', '/clientes/mensajes')
+      $(location).attr('href', '/clientes/mensajes')
       $('input#send').val('Enviado!')
 
   $('body').on 'ajax:error', 'form#new_message,form.edit_message', (e, data, status, xhr) ->
