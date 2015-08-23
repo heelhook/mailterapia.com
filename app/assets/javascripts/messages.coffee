@@ -16,18 +16,37 @@ setup_message = ->
     if ! confirm("¿Seguro que deseas borrar este mensaje? No podrás recuperarlo luego.")
       return false
 
-  $('form#new_message,form.edit_message').on 'ajax:beforeSend', (e) ->
-    $('input#send').val('Enviando...')
-    $('input#send').prop('disabled', true)
+  $('body').on 'ajax:beforeSend', 'form#new_message,form.edit_message', (e) ->
+    $draft_interval = true
+    if $('input#message_status').val() is 'draft'
+      $('input#save-draft').val('Guardando...')
+      $('input#save-draft').prop('disabled', true)
+    else
+      $('input#send').val('Enviando...')
+      $('input#send').prop('disabled', true)
 
-  $('form#new_message,form.edit_message').on 'ajax:success', (e) ->
-    $(location).attr('href', '/clientes/mensajes')
-    $('input#send').val('Enviado!')
+  $('body').on 'ajax:success', 'form#new_message,form.edit_message,form.replyform', (e, data) ->
+    $draft_paused = false
+    if $('input#message_status').val() is 'draft'
+      $('form#new_message input#message_id,form#edit_message input#message_id').val(data.id)
+      $('form#new_message,form#edit_message').attr('action', data.action)
+      $('form#new_message,form#edit_message').attr('id', 'edit_message')
+      $('form#new_message,form#edit_message').attr('class', 'edit_message')
+      $('form#new_message,form#edit_message').attr('method', 'put')
+      $('input#save-draft').val('Guardado!')
+      setTimeout ->
+        $('input#save-draft').val('Guardar Borrador')
+        $('input#save-draft').prop('disabled', false)
+      , 1000
+    else
+      $(location).attr('href', '/clientes/mensajes')
+      $('input#send').val('Enviado!')
 
-  $('form#new_message,form.edit_message').on 'ajax:error', (e, data, status, xhr) ->
+  $('body').on 'ajax:error', 'form#new_message,form.edit_message', (e, data, status, xhr) ->
     alert "El mensaje no fue enviado correctamente. Asegurate de que tu conexión funciona correctamente y vuelve a intentarlo. Si el problema continua escribenos a soporte@mailterapia.com. #{data.statusText}."
     $('input#send').val('Enviar')
     $('input#send').prop('disabled', false)
+    $draft_paused = false
 
   $('input#reply').on 'click', (e) ->
     $(@).slideUp =>
@@ -35,6 +54,7 @@ setup_message = ->
     false
 
   $('input#send').on 'click', (e) ->
+    $draft_paused = true
     $('input#message_status').val('unread')
 
   $('#save-draft').on 'click', (e) ->
@@ -48,6 +68,7 @@ setup_message = ->
     $('.replyform input#message_tag_list').val($('input#message_tag_list[type="text"]:first').val())
 
   $('input#send,input#save-draft').on 'click', ->
+    $draft_paused = true
     $('input#message_body').val(tinyMCE.activeEditor.getContent())
 
   $('[data-role="new-folder"]').on 'click', (e) ->
@@ -79,5 +100,13 @@ setup_message = ->
       success: ->
         $(".message[data-id='#{id}'] .spinner").hide()
         $(".message[data-id='#{id}'] #move_to_folder").show()
+
+  setInterval ->
+    $('#save-draft').click() unless $draft_paused? && $draft_paused
+  , 30000
+
+  if $('.replyform[id^="edit_message_"]').length == 1
+    $('input#reply').slideUp ->
+      $('.replyform').slideDown()
 
 $(document).on 'page:load ready', -> setup_message()

@@ -32,6 +32,7 @@
           .content.content-box-content
             .contact-form#message
               = form_for @message, remote: true do |f|
+                = f.hidden_field :id
                 = f.hidden_field :in_reply_to_id
                 = f.hidden_field :status
                 .contact-name-field

@@ -1,7 +1,7 @@
 class MessagesController < ApplicationController
   before_filter :load_resources
   before_action :authenticate_user!
-  respond_to :html
+  respond_to :html, :js
 
   def index
     if ! @folder
@@ -46,7 +46,10 @@ class MessagesController < ApplicationController
     @message.save
     @message = MessageDecorator.new(@message)
 
-    respond_with @message, location: -> { messages_path }
+    render json: {
+      id: @message.id,
+      action: url_for(@message),
+    }
   end
 
   def edit
@@ -72,13 +75,15 @@ class MessagesController < ApplicationController
     @message.read! if @message.unread?
     @message = @message.decorate
 
-    @reply = Message.new(
-      in_reply_to: @message,
-      to: @message.from,
-      subject: @message.subject,
-      body: "<p></p><hr /><p>#{@message.from.nombre} escribió el #{l @message.created_at, format: :short}:</p><blockquote>#{@message.body}</blockquote>",
-      tag_list: @message.tag_list,
-    )
+    @reply = Message.where(in_reply_to: @message, from: current_user, status: Message.statuses['draft']).first_or_initialize
+
+    if @reply.new_record?
+      @reply.to = @message.from
+      @reply.subject = @message.subject
+      @reply.body = "<p></p><hr /><p>#{@message.from.nombre} escribió el #{l @message.created_at, format: :short}:</p><blockquote>#{@message.body}</blockquote>"
+      @reply.tag_list = @message.tag_list
+    end
+
     @reply = @reply.decorate
   end
 
@@ -99,7 +104,7 @@ class MessagesController < ApplicationController
       :to_id,
       :subject,
       :body,
-      :in_reply_to,
+      :in_reply_to_id,
       :status,
       :folder_id,
       :tag_list,

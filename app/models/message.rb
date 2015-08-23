@@ -29,7 +29,7 @@ class Message < ActiveRecord::Base
   end
 
   def send_notification
-    TransactionMailer.new_message_notification(self).deliver unless draft?
+    # TransactionMailer.new_message_notification(self).deliver unless draft?
   end
 
   def draft_id

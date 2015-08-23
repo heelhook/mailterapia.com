@@ -48,3 +48,4 @@ gem 'mysql2'
 gem 'draper'
 gem 'tinymce-rails'
 gem 'acts-as-taggable-on', '~> 3.4'
+gem "airbrake"
