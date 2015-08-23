@@ -60,6 +60,7 @@ class MessagesController < ApplicationController
   def update
     @message.update_attributes(message_params)
     @message.update_attributes(created_at: Time.now) if params[:message][:body]|| params[:message][:status]
+    @message.update_attributes(to_id: Message.default_recipient.id) unless current_user.admin?
     @message.send_notification if params[:message][:status] && !@message.draft?
 
     @message = MessageDecorator.new(@message)
