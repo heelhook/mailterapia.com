@@ -6,7 +6,7 @@ class Message < ActiveRecord::Base
 
   has_many :replies, class_name: 'Message', foreign_key: :in_reply_to_id
 
-  validates :from_id, :to_id, :subject, presence: true
+  validates :from_id, :to_id, presence: true
 
   default_scope { order(created_at: :desc)}
   scope :unread, -> { where(status: Message.statuses['unread']) }
