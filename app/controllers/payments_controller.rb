@@ -55,6 +55,7 @@ class PaymentsController < ApplicationController
       plan = 'suscripcion-ilimitada'
       service_name = 'Suscripción Ilimitada'
       comienzo_terapia_template_name = 'ilimitada'
+      amount = 7500
     end
 
     case session[:coupon]
