@@ -1,4 +1,5 @@
 class PaymentsController < ApplicationController
+  before_action :authenticate_user!
   before_filter :load_stripe_customer_exists, only: [:new, :descuentosorteo]
 
   def new
