@@ -12,8 +12,8 @@ html
     link#wope-font-css href="https://www.mailterapia.com/wp-content/themes/prototype/font-set/typography.css?ver=4.1.1" media="all" rel="stylesheet" type="text/css" /
     link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css" /
 
-    == stylesheet_link_tag "application", :media => 'all', 'data-turbolinks-track' => true
-    == javascript_include_tag 'application', 'data-turbolinks-track' => true
+    == stylesheet_link_tag "application", :media => 'all'
+    == javascript_include_tag 'application'
     == csrf_meta_tags
   body.page.page-id-473.page-template-default[class="#{controller_name} #{action_name}"]
     input#stripe_key[type='hidden' value=Rails.application.secrets.stripe_key_public]
@@ -71,9 +71,9 @@ html
     script src="https://www.mailterapia.com/wp-content/themes/prototype/js/prettyPhoto/js/jquery.prettyPhoto.js?ver=4.1.1" type="text/javascript"
     script src="https://www.mailterapia.com/wp-content/themes/prototype/js/jquery.tubular.1.0.js?ver=4.1.1" type="text/javascript"
     - if Rails.application.config.assets.precompile.include? "#{controller_name}.css"
-      == stylesheet_link_tag controller_name, :media => 'all', 'data-turbolinks-track' => true
+      == stylesheet_link_tag controller_name, :media => 'all'
     - if Rails.application.config.assets.precompile.include? "#{controller_name}.js"
-      == javascript_include_tag controller_name, 'data-turbolinks-track' => true
+      == javascript_include_tag controller_name
     javascript:
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
