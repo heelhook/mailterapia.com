@@ -58,6 +58,10 @@
                 = text_area_tag :body, @message.body, id: 'message_body_editor', class: 'tinymce'
                 = f.submit 'Enviar', :class => 'normal-button', id: 'send'
                 = f.submit 'Guardar Borrador', class: 'normal-button', id: 'save-draft'
+                div
+                  label
+                    input#autosave[type="checkbox" checked="checked"]
+                    span Guardar borrador automáticamente
     .cleared
 
     - if current_user.service == 'consulta-expres'

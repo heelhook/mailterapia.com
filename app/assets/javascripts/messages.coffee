@@ -79,6 +79,7 @@ setup_message = ->
     if tinyMCE.activeEditor?
       draft_pause()
       $('input#message_body').val(tinyMCE.activeEditor.getContent())
+      $('body').attr('data-draft-saved-length', tinyMCE.activeEditor.getContent().length)
 
   $('[data-role="new-folder"]').on 'click', (e) ->
     name = prompt "Nombre de la nueva carpeta:"
@@ -111,7 +112,11 @@ setup_message = ->
         $(".message[data-id='#{id}'] #move_to_folder").show()
 
   autosave_interval = setInterval ->
-    $('#save-draft').click() unless draft_paused()
+    if tinyMCE.activeEditor?
+      previous_length = parseInt($('body').attr('data-draft-saved-length'))
+      current_length = tinyMCE.activeEditor.getContent().length
+      if (not draft_paused()) and ($('#autosave').is(':checked')) and (previous_length != current_length)
+        $('#save-draft').click()
   , 30000
 
   $(document).on 'page:before-change', ->
