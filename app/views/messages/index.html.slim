@@ -55,7 +55,7 @@
         h2.content-section-title
           span Enviados
       .cleared
-      .content-column1.column-last
+      .content-column1.column-last.sent-messages
         table.table
           thead
             tr
@@ -79,6 +79,7 @@
                 td
                   - if ! current_user.admin?
                     = link_to "Borrar", message_path(message), method: :delete, class: 'delete-mail'
+      .scroll-bar
     .cleared
 
   - if @drafts.any?
@@ -87,7 +88,7 @@
         h2.content-section-title
           span Borradores
       .cleared
-      .content-column1.column-last
+      .content-column1.column-last.draft-messages
         table.table
           thead
             tr
@@ -109,4 +110,5 @@
                     - message.tags.each do |tag|
                       li= link_to tag.name, back_path(tagged: tag.name)
                 td= link_to "Borrar", message_path(message), method: :delete, class: 'delete-mail'
+      .scroll-bar
     .cleared
