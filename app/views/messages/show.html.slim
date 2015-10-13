@@ -28,11 +28,13 @@
               = form_for @reply, remote: true, html: { class: 'replyform' } do |f|
                 = f.hidden_field :id
                 = f.hidden_field :to_id
-                = f.hidden_field :subject
                 = f.hidden_field :in_reply_to_id
                 = f.hidden_field :status
                 = f.hidden_field :body
                 h3 Tu respuesta
+                .contact-name-field
+                  div Asunto
+                  = f.text_field :subject, class: 'contact-name'
                 .tags
                   .contact-name-field
                     div Etiquetas
