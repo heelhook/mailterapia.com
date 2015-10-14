@@ -89,7 +89,7 @@ class TransactionMailer < MandrillMailer::TemplateMailer
       vars: {
         'SENDER_NAME' => message.from.nombre_completo,
         'NAME' => message.to.nombre,
-        'SUBJECT' => message.subject,
+        'SUBJECT' => "Has recibido un nuevo mensaje en Mailterapia",
         'LINK_MESSAGE' => "https://www.mailterapia.com/clientes/mensajes/#{message.id}",
       },
       important: true,
