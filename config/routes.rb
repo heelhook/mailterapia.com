@@ -19,6 +19,9 @@ Rails.application.routes.draw do
   resources :messages, path: 'mensajes' do
     put :move
   end
+
+  get '/sudo/:id' => 'visitors#sudo'
+
   resources :folders, only: [:create] do
     resources :messages, only: [:index]
   end

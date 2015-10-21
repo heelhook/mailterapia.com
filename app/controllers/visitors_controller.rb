@@ -40,4 +40,11 @@ class VisitorsController < ApplicationController
       redirect_to action: :index
     end
   end
+
+  def sudo
+    raise unless current_user.admin?
+    user = User.find(params[:id])
+    sign_in(user)
+    redirect_to root_path
+  end
 end
