@@ -13,14 +13,16 @@ class PaymentsController < ApplicationController
     customer = current_user.stripe_customer
     session[:first_payment] = true unless customer
 
-    customer ||= Stripe::Customer.create(
-      description: current_user.nombre_completo,
-      email: params[:stripe_token][:email],
-    )
+    if !customer
+      customer ||= Stripe::Customer.create(
+        description: current_user.nombre_completo,
+        email: params[:stripe_token][:email],
+      )
 
-    customer.sources.create(source: params[:stripe_token][:id])
+      customer.sources.create(source: params[:stripe_token][:id])
 
-    current_user.update_attributes!(stripe_token: customer.id)
+      current_user.update_attributes!(stripe_token: customer.id)
+    end
 
     wordbank_balance = 0
     type = :charge
