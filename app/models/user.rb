@@ -88,7 +88,9 @@ class User < ActiveRecord::Base
   def stripe_customer
     return nil unless stripe_token
 
-    Stripe::Customer.retrieve stripe_token rescue nil
+    customer = Stripe::Customer.retrieve(stripe_token) rescue nil
+    return nil if !customer || customer.try(:deleted)
+    customer
   end
 
   def chargable_stripe_customer?

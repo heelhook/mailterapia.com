@@ -19,9 +19,11 @@ class PaymentsController < ApplicationController
         email: params[:stripe_token][:email],
       )
 
-      customer.sources.create(source: params[:stripe_token][:id])
-
       current_user.update_attributes!(stripe_token: customer.id)
+    end
+
+    if customer.sources.all(object: 'card').count == 0
+      customer.sources.create(source: params[:stripe_token][:id])
     end
 
     wordbank_balance = 0
