@@ -18,6 +18,8 @@
         =link_to 'regístrate aqui', new_user_registration_path
         | . Si ya estás registrado, por favor, inicia sesión.
 
+    - if @vacations_until > Time.now
+      == render partial: 'shared/vacations'
   .cleared
   .content-column3_1
     img
