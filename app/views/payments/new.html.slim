@@ -74,6 +74,11 @@ script src="https://checkout.stripe.com/checkout.js"
                 p(style="margin: 1em 0;")
                   | Podrás escribir a lo largo de toda la semana y recibirás tus respuestas de lunes a jueves.
 
+                .content[style='border: solid #C26643 1px; display: inline-block; margin: 1em 0; padding: 0.5em 1rem; background-color: #FAA85B; text-align: center; color: #333333;']
+                  ' ¡Ahora mismo hay solo
+                  b dos plazas disponibles
+                  |  para suscripción ilimitada!
+
                 p
                   - if current_user.active_subscription?
                     a.normal-button.cancel_plan[href='#' data-name="suscripcion-ilimitada-60"] Cancelar
