@@ -55,12 +55,12 @@ class PaymentsController < ApplicationController
       amount = 7500
       service_name = 'Bono WordBank 2000 palabras'
       comienzo_terapia_template_name = 'wordbank'
-    when 'suscripcion-ilimitada'
+    when 'suscripcion-ilimitada-60'
       type = :subscription
-      plan = 'suscripcion-ilimitada'
+      plan = 'suscripcion-ilimitada-60'
       service_name = 'Suscripción Ilimitada'
       comienzo_terapia_template_name = 'ilimitada'
-      amount = 7500
+      amount = 6000
     end
 
     case session[:coupon]

@@ -101,7 +101,7 @@ class User < ActiveRecord::Base
   def service
     case
     when active_service == 'consulta-expres' then 'consulta-expres'
-    when active_subscription == 'suscripcion-ilimitada' then 'suscripcion-ilimitada'
+    when active_subscription == 'suscripcion-ilimitada-60' then 'suscripcion-ilimitada-60'
     when wordbank_balance > 0 then 'wordbank'
     end
   end
@@ -111,7 +111,7 @@ class User < ActiveRecord::Base
   end
 
   def active_subscription?
-    active_subscription == 'suscripcion-ilimitada'
+    active_subscription == 'suscripcion-ilimitada-60'
   end
 
   def active_service?

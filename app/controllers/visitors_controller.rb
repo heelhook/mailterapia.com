@@ -34,8 +34,8 @@ class VisitorsController < ApplicationController
   def informacion_comienzo
     @service = case current_user.service
     when 'consulta-expres' then 'consulta-expres'
-    when 'suscripcion-ilimitada' then 'suscripcion-ilimitada'
-    when 'wordbank' then 'suscripcion-ilimitada'
+    when 'suscripcion-ilimitada-60' then 'suscripcion-ilimitada-60'
+    when 'wordbank' then 'suscripcion-ilimitada-60'
     else
       redirect_to action: :index
     end

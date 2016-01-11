@@ -22,7 +22,7 @@ $ ->
     $('.cancel_plan').on 'click', (e) ->
       if confirm('Seguro que quieres cancelar?')
         $.ajax
-          url: '/clientes/payments/suscripcion-ilimitada'
+          url: '/clientes/payments/suscripcion-ilimitada-60'
           method: 'delete'
           complete: -> payment_completed()
 
@@ -60,7 +60,7 @@ $ ->
             when 'wordbank-75'
               description: 'Bono 2000 palabras'
               panelLabel: 'Cargar WordBank'
-            when 'suscripcion-ilimitada'
+            when 'suscripcion-ilimitada-60'
               description: 'Suscripcion Ilimitada'
               panelLabel: 'Activar Suscripcion'
         )

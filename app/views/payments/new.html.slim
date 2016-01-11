@@ -71,12 +71,14 @@ script src="https://checkout.stripe.com/checkout.js"
               .icon-box-content
                 p
                   | Con el plan de suscripción ilimitada podrás recibir apoyo terapéutico por un precio fijo. Puedes escribir tantos mails como quieras y tan largos como quieras: el precio será el mismo.
+                p(style="margin: 1em 0;")
+                  | Podrás escribir a lo largo de toda la semana y recibirás tus respuestas de lunes a jueves.
 
                 p
                   - if current_user.active_subscription?
-                    a.normal-button.cancel_plan[href='#' data-name="suscripcion-ilimitada"] Cancelar
+                    a.normal-button.cancel_plan[href='#' data-name="suscripcion-ilimitada-60"] Cancelar
                   - else
-                    a.normal-button.choose_plan[href='#' data-name="suscripcion-ilimitada"] Comenzar Suscripción Ilimitada (75 € cada dos semanas)
+                    a.normal-button.choose_plan[href='#' data-name="suscripcion-ilimitada-60"] Comenzar Suscripción Ilimitada (60 € cada dos semanas)
             .cleared
 
           = form_tag method: 'post' do
