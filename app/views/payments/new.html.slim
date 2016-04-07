@@ -75,9 +75,9 @@ script src="https://checkout.stripe.com/checkout.js"
                   | Podrás escribir a lo largo de toda la semana y recibirás tus respuestas de lunes a jueves.
 
                 .content[style='border: solid #C26643 1px; display: inline-block; margin: 1em 0; padding: 0.5em 1rem; background-color: #FAA85B; text-align: center; color: #333333;']
-                  ' ¡Ahora mismo hay solo
-                  b dos plazas disponibles
-                  |  para suscripción ilimitada!
+                  ' En este momento no quedan plazas disponibles para la suscripción ilimitada. Por favor,
+                  a[href='mailto:marinadiazc@gmail.com', style='color: #000000; text-decoration: underline;'] contacta conmigo
+                  '  para apuntarte a la lista de espera.
 
                 p
                   - if current_user.active_subscription?
